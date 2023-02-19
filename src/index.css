@@ -2,7 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-.icon {
-  @apply h-8 w-8 text-blue-color hover:bg-gray-200 p-1 rounded-full duration-300 ease-in-out 
-    cursor-pointer;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Navigation links styles */
+.nav-link {
+  @apply lg:text-gray-700 pb-[29px] hover:text-blue-color hover:border-b-4 
+  hover:border-transparent lg:hover:border-blue-color duration-150;
+}
+
+.search-input {
+  @apply block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 placeholder-gray-500 focus:border-blue-color
+ focus:text-gray-800 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-color;
+}
+
+.active-link {
+  @apply text-blue-color border-t-4 border-transparent;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Bottom navigation styles */
+.bottom-active-link {
+  @apply bg-transparent;
+}
+.bottom-active-link > * {
+  @apply text-blue-500 stroke-blue-color;
+}
+.bottom-icon {
+  @apply w-6 h-6;
+}
+
+/* Swipper styles */
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: none;
+
+  justify-content: center;
+  align-items: center;
+}
+.swiper-slide p {
+  @apply absolute bottom-4 left-0 right-0 text-gray-300 md:text-3xl;
+}
+
+/* .swiper-slide img {
+  @apply block w-full md:h-[60vh] object-cover rounded-xl;
+} */
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  @apply text-gray-300 text-[20px];
 }
