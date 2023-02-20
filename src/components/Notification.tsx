@@ -1,5 +1,3 @@
-import React from "react";
-
 type notificationProps = {
   image: string;
   name: string;
