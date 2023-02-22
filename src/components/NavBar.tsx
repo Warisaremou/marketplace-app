@@ -1,8 +1,9 @@
 import { useState } from "react";
+import AlertNotification from "./AlertNotification";
 import { Link } from "react-router-dom";
-import Logo from "../assets/svg/Logo.svg";
 import BottomNav from "./BottomNav";
 import CustomLink from "./CustomLink";
+import Logo from "../assets/svg/Logo.svg";
 import { MagnifyingGlassIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { GripVertical } from "react-bootstrap-icons";
 import {
@@ -55,6 +56,7 @@ function NavBar() {
   return (
     <div>
       <div className="px-4 md:px-10 py-3 md:py-6">
+        <AlertNotification />
         {/* Desktop view */}
         <div className="hidden md:flex items-center justify-between border-b-2 pb-4">
           <Link to="/home" className="flex gap-x-2 items-center">
@@ -118,7 +120,7 @@ function NavBar() {
           </div>
         </div>
         {/* Mobile view */}
-        <div className="flex justify-between items-center pb-4">
+        <div className="flex justify-between items-center pb-4 border-b-[1px] border-gray-200">
           <div className="flex gap-x-2 items-center md:hidden">
             <img src={Logo} alt="" className="h-9 w-9" />
             <h1 className="text-xl text-blue-color font-semibold">MARKET</h1>
