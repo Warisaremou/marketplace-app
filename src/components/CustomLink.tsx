@@ -13,7 +13,7 @@ function CustomLink({ to, children }: Props) {
   return (
     <div className="">
       <Link
-        className={clsx("flex flex-col items-center", isActive && "bottom-active-link")}
+        className={clsx("flex flex-col items-center menu", isActive && "bottom-active-link")}
         to={to}
       >
         {children}

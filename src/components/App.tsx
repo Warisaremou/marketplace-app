@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import { Home, Error, Notifications } from "../pages";
 
@@ -8,7 +8,7 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/">
+          <Route path="/" element={<Outlet />}>
             <Route path="home" index element={<Home />} />
             <Route path="notifications" element={<Notifications />} />
             {/* <Route path="products" element={<Products />} />

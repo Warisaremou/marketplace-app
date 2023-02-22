@@ -25,25 +25,22 @@ function Home() {
   ];
 
   return (
-    <div className="px-4">
+    <div className="px-4 md:px-10">
       <>
-        <div className="flex gap-x-2 items-center md:hidden pb-4">
-          <img src={Logo} alt="" className="h-9 w-9" />
-          <h1 className="text-xl text-blue-color font-semibold">MARKET</h1>
-        </div>
+        
 
-        <div className="hidden md:flex">
-          <>
-            <img src={Logo} alt="" />
-          </>
-        </div>
+        
 
         {/* SearchBar for mobile */}
         <div className="relative md:hidden">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
           </div>
-          <input className="search-input" placeholder="Rechercher un produit" type="search" />
+          <input
+            className="search-input w-full"
+            placeholder="Rechercher un produit"
+            type="search"
+          />
         </div>
       </>
 

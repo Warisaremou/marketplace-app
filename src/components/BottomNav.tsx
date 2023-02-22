@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BellIcon,
   HomeIcon,
@@ -14,31 +13,26 @@ function BottomNav() {
       name: "Acceuil",
       path: "/home",
       icon: HomeIcon,
-      current: true,
     },
     {
       name: "Categories",
       path: "/categories",
       icon: Squares2X2Icon,
-      current: false,
     },
     {
       name: "Notifications",
       path: "/notifications",
       icon: BellIcon,
-      current: false,
     },
     {
       name: "Panier",
       path: "/cart",
       icon: ShoppingBagIcon,
-      current: false,
     },
     {
       name: "Profile",
       path: "/profile",
       icon: UserCircleIcon,
-      current: false,
     },
   ];
 

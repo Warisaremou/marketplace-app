@@ -13,13 +13,24 @@
 
 /* Navigation links styles */
 .nav-link {
-  @apply lg:text-gray-700 pb-[29px] hover:text-blue-color hover:border-b-4 
-  hover:border-transparent lg:hover:border-blue-color duration-150;
+  @apply flex gap-x-4;
+}
+
+.meny > * {
+  @apply stroke-blue-color text-blue-color;
 }
 
 .search-input {
-  @apply block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 placeholder-gray-500 focus:border-blue-color
+  @apply block rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 placeholder-gray-500 focus:border-blue-color
  focus:text-gray-800 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-color;
+}
+
+.langage-select {
+  @apply border rounded p-1 cursor-pointer focus:border-blue-color focus:outline-none focus:ring-1 focus:ring-blue-color;
+}
+
+.sell-btn{
+  @apply text-sm bg-blue-color p-2 text-white rounded;
 }
 
 .active-link {
@@ -36,7 +47,7 @@
   @apply bg-transparent;
 }
 .bottom-active-link > * {
-  @apply text-blue-500 stroke-blue-color;
+  @apply text-blue-color stroke-blue-color;
 }
 .bottom-icon {
   @apply w-6 h-6;
