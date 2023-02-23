@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
-import NavBar from "./NavBar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   Home,
   Error,
@@ -10,38 +9,39 @@ import {
   Product,
   Register,
   Login,
+  ConfirmMailRoute,
 } from "../pages";
-import Footer from "./Footer";
 import { LoaderContextProvider } from "../context/LoaderContext";
+import Layout from "./Layout";
+import { UserLoggedContextProvider } from "../context/UserLoggedContext";
+import PrivateRoute from "../utils/PrivateRoute";
 
 function App() {
   return (
     <div className="font-poppins">
-      <LoaderContextProvider>
-        <Router>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route path="home" index element={<Home />} />
-              <Route path="notifications" element={<Notifications />} />
-              {/* <Route path="products" element={<Products />} /> */}
-              <Route path="products/:id" element={<Product />} />
-              {/* <Route path="products/sell-product" element={<SellProductPage />} /> */}
-              <Route path="cart" element={<Cart />} />
-              <Route path="orders" element={<Orders />} />
-              {/* <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} /> */}
-              <Route path="profile" element={<UserProfile />} />
-            </Route>
-            {/* <Route path="confirm-email" element={<PrivateRoute />} />
-          <Route path="confirm-email/*" element={<ConfirmMailRoute />} /> */}
-            <Route path="login" element={<Login />} />
-            <Route path="*" element={<Error />} />
-            <Route path="register" element={<Register />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </LoaderContextProvider>
+      <UserLoggedContextProvider>
+        <LoaderContextProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route path="home" index element={<Home />} />
+                <Route path="notifications" element={<Notifications />} />
+                {/* <Route path="products" element={<Products />} /> */}
+                <Route path="products/:id" element={<Product />} />
+                {/* <Route path="products/sell-product" element={<SellProductPage />} /> */}
+                <Route path="cart" element={<Cart />} />
+                <Route path="orders" element={<Orders />} />
+                <Route path="profile" element={<UserProfile />} />
+              </Route>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="confirm-email" element={<PrivateRoute />} />
+              <Route path="confirm-email/*" element={<ConfirmMailRoute />} />
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </Router>
+        </LoaderContextProvider>
+      </UserLoggedContextProvider>
     </div>
   );
 }

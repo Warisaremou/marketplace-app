@@ -2,24 +2,28 @@ import { Google, Facebook } from "react-bootstrap-icons";
 import Loader from "../utils/Loader";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { UserLogged } from "../context/UserLoggedContext";
 import { UserLoggedContext } from "../context/LoaderContext";
-import { Link } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
 import authImg from "../assets/images/auth-side-img.jpg";
+import { clsx } from "clsx";
+import { registerUser } from "../services/authentication/register";
+import { useState } from "react";
 
 const schema = z
   .object({
     lastName: z.string().min(3, "Entrez votre nom !"),
     firstName: z.string().min(3, "Entrez votre prenom !"),
     username: z.string().min(3, "Entrez votre nom d'utilisateur !"),
-    email: z.string().email("Email invalide !"),
+    email: z.string().email("Email requis !"),
     password: z
       .string()
       .min(8, "Le mot de passe doit contenir au minimum 8 caractères !")
-      .max(20, "Le mot de passe doit contenir au maximum 20 caractères"),
+      .max(20, "Le mot de passe doit contenir au maximum 20 caractères !"),
     cPassword: z.string(),
     accept: z.literal(true, {
-      errorMap: () => ({ message: "Vous devez accepter les termes et conditions" }),
+      errorMap: () => ({ message: "Veuillez accepter les conditions générales !" }),
     }),
   })
   .required()
@@ -30,6 +34,22 @@ const schema = z
 
 function Register() {
   const { loader, setLoader } = UserLoggedContext();
+  const [isError, setIsError] = useState({ email: "" });
+  const { setRegisterMail } = UserLogged();
+  const navigate = useNavigate();
+
+  const authSocialLink = [
+    {
+      name: "Facebook",
+      href: "#",
+      icon: Facebook,
+    },
+    {
+      name: "Google",
+      href: "#",
+      icon: Google,
+    },
+  ];
 
   const {
     register,
@@ -41,23 +61,39 @@ function Register() {
 
   const onSubmit = (data: any) => {
     setLoader(true);
-    console.log(data);
-    setTimeout(() => {
-      setLoader(false);
-    }, 3000);
+    setRegisterMail(data.email);
+
+    registerUser(data)
+      .then((res) => {
+        console.log(res);
+        setTimeout(() => {
+          setLoader(false);
+          navigate("/confirm-email");
+        }, 1500);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsError(error.response.data.errors);
+        setLoader(false);
+      });
   };
 
   return (
     <>
       <div className="flex min-h-full">
-        <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-10 xl:px-36">
+        <div className="flex flex-1 flex-col justify-center py-8 md:py-6 px-4 md:px-6 lg:flex-none lg:px-16 xl:px-44">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-            <h2 className="text-center text-2xl font-medium tracking-tight text-gray-700">
-              Créez votre compte
-            </h2>
+            <div>
+              <h2 className="pb-2 text-xl font-medium text-gray-700">
+                Démarrer avec <span className="text-blue-color">MARKET</span>
+              </h2>
+              <p className="text-sm text-gray-500">
+                Créez votre compte et commercialisez vos articles
+              </p>
+            </div>
 
             <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-md">
-              <div className="py-5 px-2 sm:rounded-lg sm:px-5">
+              <div className="py-5 px-0 sm:rounded-lg sm:px-0">
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                   {/* Lastname input */}
                   <div>
@@ -88,7 +124,7 @@ function Register() {
                   {/* Username input */}
                   <div>
                     <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                      Votre nom d&apos;utilisateur
+                      Votre nom d'utilisateur
                     </label>
                     <div className="mt-1">
                       <input type="text" className="form-input" {...register("username")} />
@@ -113,6 +149,7 @@ function Register() {
                       />
                     </div>
                     {errors.email && <small className="errors">{`${errors.email?.message}`}</small>}
+                    {isError.email && <small className="errors">{`${isError.email}`}</small>}
                   </div>
 
                   {/* Password input */}
@@ -155,7 +192,7 @@ function Register() {
                     <div className="flex items-center">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-blue-color focus:blue-color"
+                        className="h-4 w-4 border-gray-300 text-blue-color focus:blue-color cursor-pointer rounded"
                         {...register("accept")}
                       />
                       <label htmlFor="remember-me" className="ml-2 block text-gray-900 font-medium">
@@ -170,7 +207,7 @@ function Register() {
 
                   <div>
                     <button type="submit" className="valide-form-btn">
-                      {loader ? <Loader /> : "Se connecter"}
+                      {loader ? <Loader /> : "S'inscrire"}
                     </button>
                   </div>
                 </form>
@@ -186,32 +223,35 @@ function Register() {
                   </div>
 
                   <div className="mt-6 grid grid-cols-2 gap-3">
-                    <div>
-                      <Link to="#" className="link-form-auth">
-                        <span className="sr-only">Sign in with Facebook</span>
-                        <Facebook className="w-5 h-5" />
-                      </Link>
-                    </div>
-
-                    <div>
-                      <Link to="#" className="link-form-auth">
-                        <span className="sr-only">Sign in with Google</span>
-                        <Google className="w-5 h-5" />
-                      </Link>
-                    </div>
+                    {authSocialLink.map((item) => (
+                      <div key={item.name}>
+                        <Link to={`${item.href}`} className="link-form-auth">
+                          <span className="sr-only">{`Sign in with ${item.name}`}</span>
+                          <item.icon
+                            className={clsx(
+                              "h-5 w-5",
+                              item.name == "Facebook" ? "text-blue-color" : "text-red-500"
+                            )}
+                          />
+                        </Link>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <p className="text-sm text-center pt-10 md:pt-5">
                   Vous avez déjà un compte ?
                   <Link to="/login" className="pl-1 text-blue-color">
-                    Se connecter
+                    Connectez-vous
                   </Link>
                 </p>
+                <Link to="/home" className="text-blue-color text-sm flex justify-center pt-3">
+                  Acceuil
+                </Link>
               </div>
             </div>
           </div>
         </div>
-        <div className="relative hidden w-0 flex-1 lg:block">
+        <div className="relative hidden w-0 flex-1 md:block">
           <img
             className="absolute inset-0 h-full w-full object-cover"
             src={authImg}

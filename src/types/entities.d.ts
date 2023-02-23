@@ -30,7 +30,8 @@ export type userType = {
   firstName: string;
   lastName: string;
   username: string;
-  country: string;
+  password: string;
+  country?: string;
   address?: string;
   phone?: number;
   description?: string;

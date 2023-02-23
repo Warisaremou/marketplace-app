@@ -33,7 +33,7 @@ const notification = [
 
 function Notifications() {
   return (
-    <div className="px-4">
+    <div className="px-4 md:px-20">
       <h1 className="text-sm font-medium text-blue-color">
         Notifications <span className="font-semibold pl-1">{notification.length}</span>
       </h1>

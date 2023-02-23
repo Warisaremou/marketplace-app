@@ -26,7 +26,7 @@ export const UserLoggedContextProvider = ({ children }: any) => {
         setMeData(res.data);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         removeFromLocalStorage("accessToken");
       });
   };

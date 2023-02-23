@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { confirmEmail } from "../services/authentication/confirmEmail";
-import confirmImg from "../assets/images/accept.png";
 import { CheckIcon } from "@heroicons/react/20/solid";
 
 function ConfirmMailRoute() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(location.pathname.substring(15));
+    // console.log(location.pathname.substring(15));
     const hash = location.pathname.substring(15);
     confirmEmail(hash)
       .then(() => {
@@ -24,7 +23,6 @@ function ConfirmMailRoute() {
   return (
     <div className="max-w-lg mx-auto mt-28 text-center">
       <div>
-        {/* <img src={confirmImg} alt="confirm-svg" className="w-16 mx-auto mb-2 flex justify-center" /> */}
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
           <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
         </div>

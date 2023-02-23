@@ -14,9 +14,12 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import MobileSideBar from "./MobileSideBar";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
+  const { getItem } = useLocalStorage();
+  const userToken = getItem("accessToken");
 
   const navMenu = [
     {
@@ -55,10 +58,10 @@ function NavBar() {
 
   return (
     <div>
-      <div className="px-4 md:px-10 py-3 md:py-6">
-        <AlertNotification />
+      <div className="px-4 md:px-10 lg:px-20 py-3 md:py-6">
+        {!userToken && <AlertNotification />}
         {/* Desktop view */}
-        <div className="hidden md:flex items-center justify-between border-b-2 pb-4">
+        <div className="hidden md:flex items-center justify-between border-b-[1px] pb-4">
           <Link to="/home" className="flex gap-x-2 items-center">
             <img src={Logo} alt="" className="w-9 h-9" />
             <h1 className="text-2xl text-blue-color font-semibold">MARKET</h1>
@@ -84,7 +87,7 @@ function NavBar() {
             ))}
           </ul>
         </div>
-        <div className="hidden md:flex items-center justify-between border-b-2 py-2">
+        <div className="hidden md:flex items-center border-b-[1px] justify-between py-2">
           <Link to="/categories" className="flex items-center gap-x-1">
             <Squares2X2Icon className="bottom-icon stroke-gray-500" />
             <span className="text-sm text-gray-700">Toutes les catégories</span>
@@ -120,11 +123,11 @@ function NavBar() {
           </div>
         </div>
         {/* Mobile view */}
-        <div className="flex justify-between items-center pb-4 border-b-[1px] border-gray-200">
-          <div className="flex gap-x-2 items-center md:hidden">
+        <div className="flex md:hidden justify-between items-center pb-4 border-b-[1px] border-gray-200">
+          <Link to="/home" className="flex gap-x-2 items-center md:hidden">
             <img src={Logo} alt="" className="h-9 w-9" />
             <h1 className="text-xl text-blue-color font-semibold">MARKET</h1>
-          </div>
+          </Link>
           <GripVertical
             onClick={() => setOpen(true)}
             className="bottom-icon fill-gray-500 md:hidden"
