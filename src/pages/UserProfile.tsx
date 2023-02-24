@@ -3,6 +3,7 @@ import { useState } from "react";
 // import UserInfo from "../components/UserInfo";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { UserLogged } from "./../context/UserLoggedContext";
+import UserDefaultProfile from "../utils/UserDefaultProfile";
 
 function UserProfile() {
   const [open, setOpen] = useState(false);
@@ -36,11 +37,15 @@ function UserProfile() {
       <div className="grid justify-center md:grid-cols-3">
         <div className="relative">
           <div className="profile-bg-cover relatice">
-            <img
-              src={meData.photo?.path}
-              alt=""
-              className="w-full h-full object-cover outline-none mx-auto relative"
-            />
+            {meData.photo == null ? (
+              <UserDefaultProfile />
+            ) : (
+              <img
+                src={meData.photo.path}
+                alt=""
+                className="w-full h-full object-cover outline-none mx-auto relative"
+              />
+            )}
           </div>
           {meData.status?.id === 1 && <span className="active"></span>}
         </div>
@@ -61,7 +66,11 @@ function UserProfile() {
             onChange={(e) => onFileChange(e)}
           /> */}
           {/* <UserInfo open={open} setOpen={setOpen} meData={meData} /> */}
-          <button type="button" onClick={() => disconnectMe()} className="mt-2 bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-xs">
+          <button
+            type="button"
+            onClick={() => disconnectMe()}
+            className="mt-2 bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-xs"
+          >
             Se déconnecter
           </button>
         </div>

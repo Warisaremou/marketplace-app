@@ -15,6 +15,7 @@ import { LoaderContextProvider } from "../context/LoaderContext";
 import Layout from "./Layout";
 import { UserLoggedContextProvider } from "../context/UserLoggedContext";
 import PrivateRoute from "../utils/PrivateRoute";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route path="home" index element={<Home />} />
+                <Route index path="home" element={<Home />} />
                 <Route path="notifications" element={<Notifications />} />
                 {/* <Route path="products" element={<Products />} /> */}
                 <Route path="products/:id" element={<Product />} />
@@ -42,6 +43,7 @@ function App() {
           </Router>
         </LoaderContextProvider>
       </UserLoggedContextProvider>
+      <Toaster />
     </div>
   );
 }

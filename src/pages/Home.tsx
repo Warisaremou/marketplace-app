@@ -1,14 +1,17 @@
-// import { UserLogged } from "../context/UserLoggedContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
-import image1 from "../assets/images/shop.jpg";
-import image2 from "../assets/images/shop-2.jpg";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
+import image1 from "../assets/images/shop.jpg";
+import image2 from "../assets/images/shop-2.jpg";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import Logo from "../assets/svg/Logo.svg";
+import { useEffect } from "react";
+import { UserLogged } from "./../context/UserLoggedContext";
 
 function Home() {
+  const { meData } = UserLogged();
+
   const slidersItems = [
     {
       image: image1,
@@ -23,6 +26,7 @@ function Home() {
       title: "Hello world 3",
     },
   ];
+
 
   return (
     <div className="px-4 md:px-20">
@@ -48,7 +52,7 @@ function Home() {
           disableOnInteraction: false,
         }}
         pagination={{
-          clickable: true,
+          dynamicBullets: true,
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
@@ -63,7 +67,10 @@ function Home() {
         ))}
       </Swiper>
 
-      <h2 className="pt-10">Ajout récent</h2>
+      {/* Articles populaires */}
+      <section>
+        <h2 className="section-title">Articles populaires</h2>
+      </section>
     </div>
   );
 }

@@ -11,6 +11,16 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* User profile */
+.profile-bg-cover {
+  @apply flex bg-gray-200 w-28 h-28 md:w-40 md:h-40 overflow-hidden rounded-full 
+  inline-block text-center align-middle my-0 mx-auto bg-cover;
+}
+.active {
+  @apply w-4 h-4 rounded-full border-white border-2 bg-green-600 absolute 
+  bottom-1 right-[45px] md:right-[31%] lg:right-[36%] xl:right-[39%] 2xl:right-[40%];
+}
+
 /* Navigation links styles */
 .nav-link {
   @apply flex gap-x-4;
@@ -77,18 +87,31 @@
   @apply text-xs text-red-600;
 }
 
+/* Home */
+section {
+  @apply py-6;
+}
+.section-title {
+  @apply text-xl font-medium text-gray-500;
+}
+
 /* Swipper styles */
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: none;
-
   justify-content: center;
   align-items: center;
 }
 .swiper-slide p {
   @apply absolute bottom-4 left-0 right-0 text-gray-300 md:text-3xl;
+}
+.swiper-pagination-bullet {
+  @apply bg-white;
+}
+.swiper-pagination-bullet-active-main {
+  @apply bg-blue-color opacity-90;
 }
 
 /* .swiper-slide img {
