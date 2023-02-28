@@ -2,6 +2,7 @@ export { default as Home } from "./Home";
 export { default as Notifications } from "./Notifications";
 export { default as Orders } from "./Orders";
 export { default as Product } from "./Product";
+export { default as SellProduct } from "./SellProduct";
 export { default as Error } from "./Error";
 export { default as UserProfile } from "./UserProfile";
 export { default as Cart } from "./Cart";

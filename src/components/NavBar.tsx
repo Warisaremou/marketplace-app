@@ -5,7 +5,6 @@ import BottomNav from "./BottomNav";
 import CustomLink from "./CustomLink";
 import Logo from "../assets/svg/Logo.svg";
 import { MagnifyingGlassIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { GripVertical } from "react-bootstrap-icons";
 import {
   ArchiveBoxArrowDownIcon,
   BellIcon,
@@ -15,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import MobileSideBar from "./MobileSideBar";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { Bars2Icon } from "@heroicons/react/20/solid";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
@@ -128,10 +128,12 @@ function NavBar() {
             <img src={Logo} alt="" className="h-9 w-9" />
             <h1 className="text-xl text-blue-color font-semibold">MARKET</h1>
           </Link>
-          <GripVertical
-            onClick={() => setOpen(true)}
-            className="bottom-icon fill-gray-500 md:hidden"
-          />
+          <div className="flex items-center gap-3">
+            <CustomLink to="/notifications">
+              <BellIcon className="w-5 h-5 stroke-gray-500" />
+            </CustomLink>
+            <Bars2Icon onClick={() => setOpen(true)} className="w-5 h-5 fill-gray-500 md:hidden" />
+          </div>
         </div>
       </div>
 

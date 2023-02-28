@@ -10,6 +10,7 @@ import {
   Register,
   Login,
   ConfirmMailRoute,
+  SellProduct,
 } from "../pages";
 import { LoaderContextProvider } from "../context/LoaderContext";
 import Layout from "./Layout";
@@ -29,7 +30,7 @@ function App() {
                 <Route path="notifications" element={<Notifications />} />
                 {/* <Route path="products" element={<Products />} /> */}
                 <Route path="products/:id" element={<Product />} />
-                {/* <Route path="products/sell-product" element={<SellProductPage />} /> */}
+                <Route path="sell-product" element={<SellProduct />} />
                 <Route path="cart" element={<Cart />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="profile" element={<UserProfile />} />

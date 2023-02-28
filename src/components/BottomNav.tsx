@@ -1,6 +1,7 @@
 import {
   BellIcon,
   HomeIcon,
+  PlusCircleIcon,
   ShoppingBagIcon,
   Squares2X2Icon,
   UserCircleIcon,
@@ -20,9 +21,9 @@ function BottomNav() {
       icon: Squares2X2Icon,
     },
     {
-      name: "Notifications",
-      path: "/notifications",
-      icon: BellIcon,
+      name: "Vendre",
+      path: "/sell-product",
+      icon: PlusCircleIcon,
     },
     {
       name: "Panier",
@@ -37,7 +38,7 @@ function BottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 right-0 mx-auto md:hidden bg-gray-100">
+    <div className="fixed bottom-0 left-0 z-50 right-0 mx-auto md:hidden bg-gray-50 border-t-[1px] border-gray-200">
       <nav className="flex justify-between items-center py-2 px-4">
         {bottomMenu.map(({ icon: Icon, ...menu }) => (
           <li key={menu.path}>

@@ -74,6 +74,11 @@
   shadow-sm focus:border-blue-color focus:outline-none focus:ring-blue-color sm:text-sm text-gray-700;
 }
 
+.text-area-input {
+  @apply block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 
+  shadow-sm focus:border-blue-color focus:outline-none focus:ring-blue-color sm:text-sm text-gray-700;
+}
+
 .valide-form-btn {
   @apply flex w-full h-12 justify-center items-center rounded-md border border-transparent bg-blue-color py-2 px-4 text-[16px] 
   font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-color focus:ring-offset-2;
@@ -92,7 +97,7 @@ section {
   @apply py-6;
 }
 .section-title {
-  @apply text-xl font-medium text-gray-500;
+  @apply text-base md:text-xl font-medium text-gray-500;
 }
 
 /* Swipper styles */
@@ -111,7 +116,7 @@ section {
   @apply bg-white;
 }
 .swiper-pagination-bullet-active-main {
-  @apply bg-blue-color opacity-90;
+  @apply bg-white opacity-70;
 }
 
 /* .swiper-slide img {

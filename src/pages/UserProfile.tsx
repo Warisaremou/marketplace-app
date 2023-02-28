@@ -60,16 +60,11 @@ function UserProfile() {
               Modifier votre profile
             </button>
           </div>
-          {/* <FileInput
-            helperText="modifer votre photo de profile"
-            className="mt-2"
-            onChange={(e) => onFileChange(e)}
-          /> */}
           {/* <UserInfo open={open} setOpen={setOpen} meData={meData} /> */}
           <button
             type="button"
             onClick={() => disconnectMe()}
-            className="mt-2 bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-xs"
+            className="flex justify-center mt-2 bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-xs"
           >
             Se déconnecter
           </button>
