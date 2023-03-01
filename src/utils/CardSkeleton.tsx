@@ -1,12 +1,9 @@
 function CardSkeleton() {
   return (
-    <div
-      role="status"
-      className="py-1 border border-gray-200 rounded shadow animate-pulse dark:border-gray-700"
-    >
+    <div role="status" className="py-1 border border-gray-300 rounded shadow animate-pulse">
       <div className="flex items-center pb-1">
         <svg
-          className="text-gray-200 w-10 h-10 dark:text-gray-700"
+          className="text-gray-300 w-10 h-10"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -19,13 +16,13 @@ function CardSkeleton() {
           ></path>
         </svg>
         <div>
-          <div className="w-16 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+          <div className="w-16 h-3 bg-gray-300 rounded-full"></div>
         </div>
       </div>
       <span className="sr-only">Loading...</span>
-      <div className="w-full flex items-center justify-center h-52 mb-3 bg-gray-300 dark:bg-gray-700">
+      <div className="w-full flex items-center justify-center h-52 mb-3 bg-gray-200">
         <svg
-          className="w-12 h-12 text-gray-200 dark:text-gray-600"
+          className="w-12 h-12 text-gray-300"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
           fill="currentColor"
@@ -36,13 +33,13 @@ function CardSkeleton() {
       </div>
       <div className="px-1">
         <div className="flex justify-between">
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-20 mb-4"></div>
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-20 mb-4"></div>
+          <div className="h-3 bg-gray-200 rounded-full w-20 mb-4"></div>
+          <div className="h-3 bg-gray-200 rounded-full"></div>
         </div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full mb-2.5"></div>
         <div className="flex justify-between">
-          <div className="h-7 bg-gray-200 w-16 rounded-xl dark:bg-gray-700"></div>
-          <div className="h-7 bg-gray-200 w-16 rounded-xl dark:bg-gray-700"></div>
+          <div className="h-7 bg-gray-200 w-16 rounded-xl"></div>
+          <div className="h-7 bg-gray-200 w-16 rounded-xl"></div>
         </div>
       </div>
       {/* <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div> */}

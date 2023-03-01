@@ -14,7 +14,10 @@ function Notification({ image, name, content, time }: notificationProps) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm md:text-base font-medium text-gray-900">{name}</p>
-          <p className="truncate text-[12px] md:text-sm text-gray-500">{content}</p>
+          <p className="truncate text-[12px] md:text-sm text-gray-500">
+            {content.substring(0, 40)}
+            {content.length >= 40 && "..."}
+          </p>
         </div>
         <div>
           <a

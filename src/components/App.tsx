@@ -11,6 +11,7 @@ import {
   Login,
   ConfirmMailRoute,
   SellProduct,
+  Categories,
 } from "../pages";
 import { LoaderContextProvider } from "../context/LoaderContext";
 import Layout from "./Layout";
@@ -28,7 +29,8 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route index path="home" element={<Home />} />
                 <Route path="notifications" element={<Notifications />} />
-                {/* <Route path="products" element={<Products />} /> */}
+                {/* <Route path="categories" element={<Categories />} /> */}
+                <Route path="categories" element={<Categories />} />
                 <Route path="products/:id" element={<Product />} />
                 <Route path="sell-product" element={<SellProduct />} />
                 <Route path="cart" element={<Cart />} />

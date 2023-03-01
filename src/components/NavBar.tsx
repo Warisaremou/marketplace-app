@@ -44,6 +44,19 @@ function NavBar() {
     },
   ];
 
+  const topMenu = [
+    {
+      name: "Commandes",
+      path: "/orders",
+      icon: ArchiveBoxArrowDownIcon,
+    },
+    {
+      name: "Notifications",
+      path: "/notifications",
+      icon: BellIcon,
+    },
+  ];
+
   const list = [
     {
       name: "Qui sommes-nous ?",
@@ -129,9 +142,13 @@ function NavBar() {
             <h1 className="text-xl text-blue-color font-semibold">MARKET</h1>
           </Link>
           <div className="flex items-center gap-3">
-            <CustomLink to="/notifications">
-              <BellIcon className="w-5 h-5 stroke-gray-500" />
-            </CustomLink>
+            {topMenu.map(({ icon: Icon, ...menu }) => (
+              <li key={`${menu.name}`} className="">
+                <CustomLink to={menu.path}>
+                  <Icon className="w-5 h-5 stroke-gray-500" />
+                </CustomLink>
+              </li>
+            ))}
             <Bars2Icon onClick={() => setOpen(true)} className="w-5 h-5 fill-gray-500 md:hidden" />
           </div>
         </div>

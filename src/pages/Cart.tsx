@@ -27,7 +27,7 @@ function Cart() {
 
   return (
     <div className="px-4 md:px-20">
-      <h1 className="text-xl md:text-2xl text-center pt-2 font-bold tracking-tight text-gray-700">
+      <h1 className="text-xl md:text-2xl pt-2 font-bold tracking-tight text-gray-700">
         Mon Panier
       </h1>
       {cart.length == 0 ? (
