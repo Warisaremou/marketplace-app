@@ -12,6 +12,7 @@ import {
   ConfirmMailRoute,
   SellProduct,
   Categories,
+  Member,
 } from "../pages";
 import { LoaderContextProvider } from "../context/LoaderContext";
 import Layout from "./Layout";
@@ -29,7 +30,7 @@ function App() {
               <Route path="/" element={<Layout />}>
                 <Route index path="home" element={<Home />} />
                 <Route path="notifications" element={<Notifications />} />
-                {/* <Route path="categories" element={<Categories />} /> */}
+                <Route path="member/:membername" element={<Member />} />
                 <Route path="categories" element={<Categories />} />
                 <Route path="products/:id" element={<Product />} />
                 <Route path="sell-product" element={<SellProduct />} />

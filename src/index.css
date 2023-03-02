@@ -92,7 +92,9 @@
   @apply inline-flex w-full h-12 justify-center items-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm 
   font-medium text-gray-500 shadow-sm hover:bg-gray-50;
 }
-
+.update-btn {
+  @apply flex items-center gap-2 text-xs lg:text-sm font-medium border hover:bg-gray-200 p-2 rounded-md cursor-pointer duration-100 ease-in-out;
+}
 .errors {
   @apply text-xs text-red-600;
 }
@@ -118,7 +120,7 @@ section {
   @apply absolute bottom-0 h-full w-full bg-gray-800 opacity-40 z-10;
 }
 .SwiperSlide p {
-  @apply absolute bottom-4 left-0 right-0 text-gray-300 md:text-3xl z-10;
+  @apply absolute bottom-4 left-0 right-0 text-gray-300 text-2xl md:text-3xl z-10;
 }
 .swiper-pagination-bullet {
   @apply bg-white;
