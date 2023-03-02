@@ -84,7 +84,7 @@ function Register() {
         <div className="flex flex-1 flex-col justify-center py-8 md:py-6 px-4 md:px-6 lg:flex-none lg:px-16 xl:px-44">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <h2 className="pb-2 text-xl font-medium text-gray-700">
+              <h2 className="pb-2 text-xl font-semibold text-gray-600">
                 Démarrer avec <span className="text-blue-color">MARKET</span>
               </h2>
               <p className="text-sm text-gray-500">
@@ -245,7 +245,7 @@ function Register() {
                   </Link>
                 </p>
                 <Link to="/home" className="text-blue-color text-sm flex justify-center pt-3">
-                  Acceuil
+                  Accéder à l'acceuil
                 </Link>
               </div>
             </div>

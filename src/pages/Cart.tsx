@@ -36,7 +36,7 @@ function Cart() {
           <h1 className="text-gray-400 text-sm">Votre Panier est vide !</h1>
           <img src={EmptyCartSvg} alt="Error" className=" w-64 md:w-80 my-16 mx-auto" />
           <Link
-            to="/products"
+            to="/categories"
             className="text-blue-500 hover:text-blue-color mt-6 flex items-center justify-center text-center text-sm"
           >
             Passez une commande <ArrowLongRightIcon className="icon-blue" />

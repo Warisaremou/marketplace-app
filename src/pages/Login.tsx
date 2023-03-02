@@ -69,14 +69,16 @@ function Login() {
       <div className="flex h-screen">
         <div className="flex flex-1 flex-col mx-auto justify-center py-16 sm:py-6 lg:py-[65px] px-4 md:px-10 lg:flex-none lg:px-14 xl:px-44">
           <div>
-            <h2 className="pb-2 text-xl font-medium text-gray-700">Connectez-vous</h2>
+            <h2 className="pb-2 pt-2 md:pt-0 text-xl font-semibold text-gray-600">
+              Connectez-vous
+            </h2>
             <p className="text-sm text-gray-500">
               Renseignez vos identifiants pour accéder à votre compte.
             </p>
           </div>
 
           <div className="mt-0">
-            <div className="py-8 px-0 sm:rounded-lg sm:px-0">
+            <div className="py-5 px-0 sm:rounded-lg sm:px-0">
               <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -176,7 +178,7 @@ function Login() {
                 </Link>
               </p>
               <Link to="/home" className="text-blue-color text-sm flex justify-center pt-3">
-                Acceuil
+                Accéder à l'acceuil
               </Link>
             </div>
           </div>

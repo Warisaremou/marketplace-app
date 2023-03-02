@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import BottomNav from "./BottomNav";
 import CustomLink from "./CustomLink";
 import Logo from "../assets/svg/Logo.svg";
-import { MagnifyingGlassIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import {
   ArchiveBoxArrowDownIcon,
   BellIcon,
@@ -14,7 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import MobileSideBar from "./MobileSideBar";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { Bars2Icon } from "@heroicons/react/20/solid";
+import { Bars2Icon, InformationCircleIcon } from "@heroicons/react/20/solid";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
@@ -60,12 +60,12 @@ function NavBar() {
   const list = [
     {
       name: "Qui sommes-nous ?",
-      path: "about",
+      path: "/about",
     },
     {
       name: "Aide",
-      path: "help",
-      icon: QuestionMarkCircleIcon,
+      path: "/help",
+      icon: InformationCircleIcon,
     },
   ];
 
@@ -111,7 +111,7 @@ function NavBar() {
                 <CustomLink to={item.path}>
                   {Icon ? (
                     <div className="flex flex-row-reverse items-center gap-x-1">
-                      <Icon className="w-5 h-5 fill-gray-500 hover:fill-blue-color" />
+                      <Icon className="w-5 h-5 fill-gray-400 hover:fill-blue-color" />
                       <span className="text-sm font-medium text-gray-500 hover:text-blue-color">
                         {item.name}
                       </span>
@@ -145,11 +145,11 @@ function NavBar() {
             {topMenu.map(({ icon: Icon, ...menu }) => (
               <li key={`${menu.name}`} className="">
                 <CustomLink to={menu.path}>
-                  <Icon className="w-5 h-5 stroke-gray-500" />
+                  <Icon className="w-6 h-6 stroke-gray-600" />
                 </CustomLink>
               </li>
             ))}
-            <Bars2Icon onClick={() => setOpen(true)} className="w-5 h-5 fill-gray-500 md:hidden" />
+            <Bars2Icon onClick={() => setOpen(true)} className="w-6 h-6 fill-gray-500 md:hidden" />
           </div>
         </div>
       </div>

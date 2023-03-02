@@ -28,7 +28,7 @@ function CoverPhoto() {
                 id="file-upload"
                 name="file-upload"
                 type="file"
-                className="text-gray-500 focus:ring-0"
+                className="text-gray-500 focus:ring-0 cursor-pointer"
               />
             </label>
           </div>

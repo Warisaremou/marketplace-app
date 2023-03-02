@@ -45,15 +45,15 @@ function AlertNotification() {
                       aria-hidden="true"
                     />
                   </div>
-                  <div className="ml-3 w-0 flex-1 pt-0.5 text-xs sm:text-sm">
-                    <p className=" text-red-500">Vous n'êtes pas authentifié</p>
+                  <div className="ml-3 w-0 flex-1 pt-0.5 text-[13px] sm:text-sm">
+                    <p className=" text-red-500 font-medium">Vous n'êtes pas authentifié</p>
                     <div className="mt-2 text-sm flex space-x-4">
                       {authMenu.map((item) => (
                         <Link
                           to={`${item.path}`}
                           key={item.name}
                           className={clsx(
-                            "text-gray-500 text-xs sm:text-sm hover:text-blue-color",
+                            "text-gray-500 text-[13px] font-medium sm:text-sm hover:text-blue-color",
                             item.name == "Se connecter" && "text-blue-color border-r-2 pr-4"
                           )}
                         >

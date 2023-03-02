@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import image1 from "../assets/images/shop.jpg";
 import image2 from "../assets/images/shop-2.jpg";
+import image3 from "../assets/images/auth-side-img.jpg";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import CTO from "../assets/images/CTA.png";
 import { Link } from "react-router-dom";
@@ -25,7 +26,7 @@ function Home() {
       title: "Hello world 2",
     },
     {
-      image: image1,
+      image: image3,
       title: "Hello world 3",
     },
   ];
@@ -61,10 +62,14 @@ function Home() {
         className="pt-5 relative mySwiper"
       >
         {slidersItems.map((item) => (
-          <SwiperSlide key={item.title}>
-            <div className="absolute bottom-0 h-full w-full bg-gray-800 opacity-40"></div>
-            <p>{item.title}</p>
-            <img src={item.image} alt="" className="block w-full md:h-[60vh] object-cover" />
+          <SwiperSlide key={item.title} className="SwiperSlide">
+            <div className="overlay"></div>
+            <p className="">{item.title}</p>
+              <img
+                src={item.image}
+                alt=""
+                className="block relative w-full h-[30vh] md:h-[60vh] object-cover"
+              />
           </SwiperSlide>
         ))}
       </Swiper>

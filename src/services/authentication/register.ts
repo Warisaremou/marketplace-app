@@ -15,18 +15,3 @@ export const registerUser = (registerData: userType) => {
     password,
   });
 };
-// export const registerUser = (
-//   lastName: string,
-//   firstName: string,
-//   username: string,
-//   email: string,
-//   password: string,
-// ) => {
-//   return axios.post(REGISTER_URL, {
-//     lastName,
-//     firstName,
-//     username,
-//     email,
-//     password,
-//   });
-// };

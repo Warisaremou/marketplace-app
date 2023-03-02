@@ -53,7 +53,7 @@ function SellProduct() {
   return (
     <form className="px-4 md:px-20 bg-gray-100 pb-20" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-xl font-medium py-4">Vendez votre produit</h1>
-      <div className="py-4 md:py-10 px-1 md:px-8 bg-white text-xs md:text-base">
+      <div className="py-4 md:py-10 px-1 md:px-8 bg-white text-sm font-medium md:text-base">
         <p className="text-gray-500">Ajoutez trois photos de votre produit</p>
         <div className="grid lg:grid-cols-3  gap-5">
           {imageNumber.map((number) => (
@@ -64,7 +64,7 @@ function SellProduct() {
         </div>
       </div>
 
-      <div className="mt-5 py-3 md:py-10 px-1 md:px-8 bg-white text-xs md:text-base">
+      <div className="mt-5 py-3 md:py-10 px-1 md:px-8 bg-white text-xs md:text-base font-medium">
         <div className="flex flex-col md:flex-row justify-between md:pb-5">
           <div className="md:w-full pb-4 md:pb-0">
             <div>
@@ -99,7 +99,7 @@ function SellProduct() {
         </div>
       </div>
 
-      <div className="mt-5 py-3 md:py-10 px-1 md:px-8 bg-white text-xs md:text-base">
+      <div className="mt-5 py-3 md:py-10 px-1 md:px-8 bg-white text-xs md:text-base font-medium">
         <div className="flex flex-col md:flex-row justify-between">
           <div className="md:w-full">
             <div className="pb-4 md:pb-5">

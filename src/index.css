@@ -114,8 +114,11 @@ section {
   justify-content: center;
   align-items: center;
 }
-.swiper-slide p {
-  @apply absolute bottom-4 left-0 right-0 text-gray-300 md:text-3xl;
+.overlay {
+  @apply absolute bottom-0 h-full w-full bg-gray-800 opacity-40 z-10;
+}
+.SwiperSlide p {
+  @apply absolute bottom-4 left-0 right-0 text-gray-300 md:text-3xl z-10;
 }
 .swiper-pagination-bullet {
   @apply bg-white;
