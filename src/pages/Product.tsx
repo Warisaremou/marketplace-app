@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import productImg from "../assets/images/T-shirt.png";
 // import QuantitySelect from "../components/QuantitySelect";
+import { ProductData } from "../context/ProductContext";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { CheckBadgeIcon, PhoneIcon, ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { StarIcon } from "@heroicons/react/24/solid";
-import { AllProductDetails } from "../data/productsDetails";
 import ProductReviews from "../components/Products/ProductReviews";
 import clsx from "clsx";
-// import { Avatar } from "flowbite-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { getOneProduct } from "./../services/products/getOneProduct";
 import Skeleton from "./../utils/Skeleton";
 import { toast } from "react-hot-toast";
 import { CartData } from "./../context/CartContext";
 import { addReview } from "./../services/reviews/addReview";
-import { ProductData } from "../context/ProductContext";
+import Avatar from "../utils/Avatar";
 
 function Product() {
   const { id } = useParams();
+  const [productImgList, setProductImgList] = useState<string[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
-  const [mainImage, setMainImage] = useState(AllProductDetails[0]);
+  const [mainImage, setMainImage] = useState("");
   const [selectedRate, setSelectedRate] = useState<number>(0);
   const [openCommentField, setOpenCommentField] = useState(false);
   const [comment, setComment] = useState({ rating: 0, review: "" });
@@ -33,10 +32,18 @@ function Product() {
     getOneProduct(id)
       .then((res) => {
         setProduct(res.data);
+        console.log(res.data);
+        setProductImgList(res.data.pictures.path);
+        setMainImage(res.data?.pictures?.path[0]);
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
   }, []);
+
+  // Return to previous path
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   // Rate product
   function onRateSelection(item: number) {
@@ -78,43 +85,46 @@ function Product() {
   }
 
   return (
-    <div className="mt-8 mb-8">
-      <Link to="/products" className="text-blue-color flex pb-5 items-center">
+    <div className="my-8 mx-5 md:mx-10">
+      <button onClick={handleGoBack} className="text-blue-color flex pb-5 items-center">
         <ArrowLeftIcon className="icon-blue" /> Retour
-      </Link>
+      </button>
       {/* Product Info */}
       {isLoading ? (
         <Skeleton />
       ) : (
         <div>
           <div className="flex items-center p-2 cursor-pointer mb-2">
-            {/* {product.seller?.photo == null ? (
-              <Avatar rounded={true} size="sm" />
+            {product?.seller?.photo == null ? (
+              <Avatar />
             ) : (
-              <Avatar img={product.seller?.photo?.path} rounded={true} className="" />
-            )} */}
+              <Avatar src={product?.seller?.photo?.path} />
+            )}
             <span className="pl-2 text-xs font-medium flex items-center">
-              {product.seller?.username}{" "}
-              {product.seller?.id >= 10 && <CheckBadgeIcon className="h-4 fill-blue-color" />}{" "}
+              {product?.seller?.username}{" "}
+              {product?.seller?.id >= 10 && <CheckBadgeIcon className="h-4 fill-blue-color" />}{" "}
             </span>
           </div>
           <div className="flex gap-14 flex-col md:flex-row">
             <div className="md:w-3/4">
-              <div>
-                <img src={mainImage.cover} alt={mainImage.name} className="rounded-md" />
+              <div className="w-full h-[23rem] md:h-80 lg:h-[25rem] overflow-hidden rounded-md bg-cover">
+                <img src={mainImage} className="" />
               </div>
               <div className="grid grid-cols-3 gap-4 lg:gap-6 mt-6">
-                {AllProductDetails.map((product) => (
-                  <img
-                    key={product.id}
-                    src={product.cover}
-                    alt={product.name}
+                {productImgList.map((productImg, index) => (
+                  <div
                     className={clsx(
-                      "rounded-lg cursor-pointer hover:opacity-70 duration-200",
-                      mainImage.id == product.id && "opacity-70 border-4 border-blue-color"
+                      "w-auto h-20 sm:h-[100px] md:h-[85px] lg:h-24 overflow-hidden rounded-md bg-cover cursor-pointer hover:opacity-70 duration-200",
+                      mainImage == productImg && "opacity-70 border-4 border-blue-color"
                     )}
-                    onClick={() => setMainImage(product)}
-                  />
+                    key={`${index}-${productImg}}`}
+                  >
+                    <img
+                      src={productImg}
+                      className={clsx("")}
+                      onClick={() => setMainImage(productImg)}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -140,7 +150,7 @@ function Product() {
                 </span>
               </p>
               <div className="flex mb-5">
-                <StarIcon className="star-2" />
+                <StarIcon className="h-6 w-6 text-yellow-300 cursor-pointer" />
                 <h4 className="text-lg pl-1 font-semibold text-yellow-300">4.8</h4>
                 {/* {console.log(product?.reviews)} */}
                 {/* {product?.reviews.map((advice) => (
@@ -176,28 +186,28 @@ function Product() {
 
                 {/* Comment Field Section */}
                 <div>
-                  <span
+                  {/* <span
                     className="text-blue-color cursor-pointer"
                     onClick={() => setOpenCommentField(!openCommentField)}
                   >
                     Cliquez pour commenter
-                  </span>
-                  {openCommentField && (
-                    <div className="mt-3">
-                      <textarea
-                        placeholder="Votre commentaire"
-                        name="comment"
-                        cols={40}
-                        rows={4}
-                        value={comment.review}
-                        onChange={(e) => setComment({ ...comment, review: e.target.value })}
-                        className="text-sm border border-gray-300 rounded-md p-2 resize-none"
-                      ></textarea>
-                      <button className="btn block" onClick={() => addComment()}>
-                        Envoyer
-                      </button>
-                    </div>
-                  )}
+                  </span> */}
+                  {/* {openCommentField && ( */}
+                  <div className="mt-3">
+                    <textarea
+                      placeholder="Votre commentaire"
+                      name="comment"
+                      cols={40}
+                      rows={4}
+                      value={comment.review}
+                      onChange={(e) => setComment({ ...comment, review: e.target.value })}
+                      className="text-sm border border-gray-300 rounded-md p-2 resize-none"
+                    ></textarea>
+                    <button className="btn block" onClick={() => addComment()}>
+                      Envoyer
+                    </button>
+                  </div>
+                  {/* )} */}
                 </div>
               </div>
               <div className="flex flex-col gap-6 md:flex-row">
@@ -214,15 +224,15 @@ function Product() {
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          {/* <div className="mt-5">
             <h3 className="text-blue-color mb-5">Avis des clients </h3>
-            {product?.reviews.length <= 0 && (
+            {product?.reviews?.length <= 0 && (
               <h1 className="text-sm text-gray-500">Aucun commentaire sur le produit</h1>
             )}
             {product.reviews.map((comment) => (
               <ProductReviews key={comment.id} id={comment.id} />
             ))}
-          </div>
+          </div> */}
         </div>
       )}
     </div>

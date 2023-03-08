@@ -107,7 +107,7 @@ function MobileSideBar({ open, setOpen }: any) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <Dialog.Title className="text-sm font-medium text-gray-700">
-                        {meData.username ? (
+                        {meData.username !== null ? (
                           `Bienvenue ${meData.username}`
                         ) : (
                           <>

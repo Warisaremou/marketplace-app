@@ -15,6 +15,7 @@ import {
 import MobileSideBar from "./MobileSideBar";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Bars2Icon, InformationCircleIcon } from "@heroicons/react/20/solid";
+import CustomLink2 from "./CustomLink2";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
@@ -101,10 +102,12 @@ function NavBar() {
           </ul>
         </div>
         <div className="hidden md:flex items-center border-b-[1px] justify-between py-2">
-          <Link to="/categories" className="flex items-center gap-x-1">
-            <Squares2X2Icon className="bottom-icon stroke-gray-500" />
-            <span className="text-sm text-gray-700">Toutes les catégories</span>
-          </Link>
+          <div className="flex items-center gap-x-1">
+            <CustomLink2 to="/categories">
+              <Squares2X2Icon className="bottom-icon stroke-gray-500" />
+              <span className="text-sm text-gray-700">Toutes les catégories</span>
+            </CustomLink2>
+          </div>
           <ul className="flex items-center gap-x-2">
             {list.map(({ icon: Icon, ...item }) => (
               <li key={`${item.name}`} className="">

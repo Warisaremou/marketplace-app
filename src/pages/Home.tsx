@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { UserLogged } from "./../context/UserLoggedContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
@@ -12,9 +12,13 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import CTO from "../assets/images/CTA.png";
 import { Link } from "react-router-dom";
 import Features from "../components/Features";
+import CardSkeleton from "./../utils/CardSkeleton";
+import ProductCard from "../components/Products/ProductCard";
 
 function Home() {
   const { meData } = UserLogged();
+  const [products, setProdructs] = useState<{ id: number; product: any }[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const slidersItems = [
     {
@@ -32,7 +36,7 @@ function Home() {
   ];
 
   return (
-    <div className="px-4 md:px-20">
+    <div className="px-4 md:px-10 lg:px-20">
       <>
         {/* SearchBar for mobile */}
         <div className="relative md:hidden">
@@ -77,6 +81,58 @@ function Home() {
       {/* Popular articles Section */}
       <section>
         <h2 className="section-title">Articles populaires</h2>
+      </section>
+
+      {/* Recent articles Section */}
+      <section>
+        <h2 className="section-title">Articles récents</h2>
+        <div className="py-8">
+          {isLoading && (
+            <div className="products-list">
+              <Swiper
+                slidesPerView={1}
+                pagination={{
+                  dynamicBullets: true,
+                }}
+                navigation={true}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 1,
+                    spaceBetween: 50,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 50,
+                  },
+                  1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 30,
+                  },
+                }}
+                modules={[Pagination, Navigation]}
+                className="mySwiper w-full"
+              >
+                <SwiperSlide>
+                  <CardSkeleton />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <CardSkeleton />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <CardSkeleton />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <CardSkeleton />
+                </SwiperSlide>
+              </Swiper>
+            </div>
+          )}
+          <div className="products-list">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}

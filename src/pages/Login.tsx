@@ -55,6 +55,7 @@ function Login() {
         setLoader(false);
         setLocalStorage("accessToken", res.data?.token);
         navigate("/home");
+        window.location.reload();
       })
       .catch((error) => {
         // console.log(error);

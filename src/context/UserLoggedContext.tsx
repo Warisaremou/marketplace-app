@@ -1,4 +1,4 @@
-  import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import { connectMe } from "../services/authentication/me";
 import { userType } from "../types/entities";
 import { useLocalStorage } from "./../hooks/useLocalStorage";
@@ -19,17 +19,17 @@ export const UserLoggedContextProvider = ({ children }: any) => {
   useEffect(() => {
     connectUser();
   }, []);
-  const connectUser = () => {
-    connectMe()
+  async function connectUser() {
+    await connectMe()
       .then((res) => {
         // console.log(res.data);
         setMeData(res.data);
       })
       .catch((error) => {
         // console.log(error);
-        removeFromLocalStorage("accessToken");
+        // removeFromLocalStorage("accessToken");
       });
-  };
+  }
 
   //   console.log(meData);
 

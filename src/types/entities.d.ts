@@ -14,6 +14,7 @@ type productType = {
   seller: userType;
   category: Category;
   reviews: [Reviews];
+  pictures: Photo;
 };
 
 export type reviewsType = {
@@ -30,8 +31,7 @@ export type userType = {
   firstName: string;
   lastName: string;
   username: string;
-  password: string;
-  country?: string;
+  country: string;
   address?: string;
   phone?: number;
   description?: string;

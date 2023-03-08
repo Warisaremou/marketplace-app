@@ -4,11 +4,14 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { UserLogged } from "./../context/UserLoggedContext";
 import UserDefaultProfile from "../utils/UserDefaultProfile";
 import { BookmarkIcon, InboxIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { clsx } from "clsx";
 
 function UserProfile() {
   const [open, setOpen] = useState(false);
   const { meData } = UserLogged();
-  const { removeFromLocalStorage } = useLocalStorage();
+  const { removeFromLocalStorage, getItem } = useLocalStorage();
+  const userToken = getItem("accessToken");
 
   const disconnectMe = () => {
     removeFromLocalStorage("accessToken");
@@ -38,7 +41,12 @@ function UserProfile() {
     <div className="pt-5 items-center px-4 md:px-20">
       <div className="grid justify-center md:grid-cols-4">
         <div className="relative">
-          <div className="profile-bg-cover relatice">
+          <div
+            className={clsx(
+              "profile-bg-cover relative border-[3px]",
+              meData?.photo && "border-green-500"
+            )}
+          >
             {meData.photo == null ? (
               <UserDefaultProfile />
             ) : (
@@ -49,15 +57,23 @@ function UserProfile() {
               />
             )}
           </div>
-          {meData.status?.id === 1 && <span className="active"></span>}
+          {/* {meData.status?.id === 1 && <span className="active"></span>} */}
         </div>
         <div className="md:col-span-2 py-2 md:pl-5">
           <div className="flex flex-col md:flex-row gap-2 md:gap-5 items-center">
-            {/* <h1 className="font-medium text-xl text-gray-600">{meData.username}</h1> */}
-            <h1 className="font-medium text-lg text-gray-600">Username</h1>
+            {userToken ? (
+              <h1 className="font-medium text-xl text-gray-600">{meData.username}</h1>
+            ) : (
+              <div className="text-xs">
+                Vous n'êtes pas connecté
+                <Link to="/login" className="pl-1 text-red-500">
+                  s'indentifier
+                </Link>
+              </div>
+            )}
           </div>
 
-          <div className="flex items-center justify-between text-xs lg:text-sm gap-5 py-3 mt-2">
+          <div className="flex items-center text-xs lg:text-sm gap-5 py-3 mt-2">
             <p className="flex flex-col items-center lg:flex-row gap-1 text-gray-700 font-medium">
               <span>3</span> publications
             </p>
@@ -116,9 +132,7 @@ function UserProfile() {
             </nav>
 
             {/* Tabs content */}
-            <div className="py-6">
-              {}
-            </div>
+            <div className="py-6">{}</div>
           </div>
         </div>
       </div>

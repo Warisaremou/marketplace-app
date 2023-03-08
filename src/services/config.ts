@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:2000/api/v1/";
+const API_URL = "http://localhost:3000/api/v1/";
 
 export const AUTH_URL = API_URL + "auth/";
 export const USERS_URL = API_URL + "users";

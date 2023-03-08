@@ -1,5 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { getAllProducts } from "../services/products/getAllProducts";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import ProductCard from "../components/Products/ProductCard";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import CardSkeleton from "./../utils/CardSkeleton";
 import {
@@ -68,9 +70,27 @@ function classNames(...classes: any[]) {
 
 function Categories() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [products, setProdructs] = useState<{ id: number; product: any }[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getAllProducts()
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        // if array is empty
+        if (data.length === 0) {
+          setIsLoading(true);
+          return;
+        }
+        setProdructs(data);
+        setIsLoading(false);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
-    <div className="px-4 md:px-20">
+    <div className="px-4 md:px-20 bg-gray-50">
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -309,13 +329,20 @@ function Categories() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-5">
-                  <CardSkeleton />
-                  <CardSkeleton />
-                  <CardSkeleton />
-                  <CardSkeleton />
-                  <CardSkeleton />
+              <div className="lg:col-span-3 px-5">
+                {isLoading && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-5">
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                  </div>
+                )}
+                <div className="products-list">
+                  {products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
                 </div>
               </div>
             </div>

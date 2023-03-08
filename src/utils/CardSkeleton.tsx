@@ -37,12 +37,12 @@ function CardSkeleton() {
           <div className="h-3 bg-gray-200 rounded-full"></div>
         </div>
         <div className="h-2 bg-gray-200 rounded-full mb-2.5"></div>
-        <div className="flex justify-between">
+        <div className="h-2 bg-gray-200 rounded-full mb-2.5"></div>
+        {/* <div className="flex justify-between">
           <div className="h-7 bg-gray-200 w-16 rounded-xl"></div>
           <div className="h-7 bg-gray-200 w-16 rounded-xl"></div>
-        </div>
+        </div> */}
       </div>
-      {/* <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div> */}
     </div>
   );
 }
