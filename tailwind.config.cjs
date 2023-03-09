@@ -8,6 +8,9 @@ module.exports = {
         "blue-dark-color": "#256AAD",
       },
     },
+    minHeight: {
+      "1/2": "50%",
+    },
     fontFamily: {
       poppins: ["Poppins, sans-serif"],
     },

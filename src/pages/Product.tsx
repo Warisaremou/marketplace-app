@@ -15,6 +15,7 @@ import { CartData } from "./../context/CartContext";
 import { addReview } from "./../services/reviews/addReview";
 import Avatar from "../utils/Avatar";
 import { UserLogged } from "../context/UserLoggedContext";
+import CartModal from "../utils/CartModal";
 
 function Product() {
   const { id } = useParams();
@@ -24,19 +25,19 @@ function Product() {
   const [quantity, setQuantity] = useState<number>(1);
   const [mainImage, setMainImage] = useState("");
   const [selectedRate, setSelectedRate] = useState<number>(0);
-  // const [openCommentField, setOpenCommentField] = useState(false);
   const [comment, setComment] = useState({ rating: 0, review: "" });
   const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = CartData();
   const [productInfo, setProductInfo] = useState<productType>({} as productType);
   const productId = productInfo.id;
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getOneProduct(id)
       .then((res) => {
         setProductInfo(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setProductImgList(res.data.pictures.path);
         setMainImage(res.data?.pictures?.path[0]);
         setIsLoading(false);
@@ -68,10 +69,10 @@ function Product() {
       });
       return;
     }
-    console.log(productId, comment);
+    // console.log(productId, comment);
     addReview(productId, comment.rating, comment.review)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         window.location.reload();
         toast.success("Votre avis a été ajouté avec succès !", {
           style: {
@@ -88,11 +89,20 @@ function Product() {
       });
   }
 
+  // add product to cart
+  const handleAddToCart = ({ productInfo, quantity }: any | number) => {
+    if (quantity > 0) {
+      addToCart({ productInfo, quantity });
+      setOpen(true);
+    }
+  };
+
   return (
     <div className="mb-24 md:mb-0 mx-5 md:mx-10">
       <button onClick={handleGoBack} className="text-blue-color flex pb-5 items-center">
         <ArrowLeftIcon className="icon-blue" /> Retour
       </button>
+      <CartModal open={open} setOpen={setOpen} />
       {/* Product Info */}
       {isLoading ? (
         <Skeleton />
@@ -109,7 +119,7 @@ function Product() {
               <Avatar src={productInfo?.seller?.photo?.path} />
             )}
             <span className="pl-2 text-xs font-medium flex items-center">
-              <Link to={`member/${productInfo?.seller?.id}`}>{productInfo?.seller?.username}</Link>
+              {productInfo?.seller?.username}
               {productInfo?.seller?.id >= 10 && (
                 <CheckBadgeIcon className="h-4 fill-blue-color" />
               )}{" "}
@@ -142,7 +152,7 @@ function Product() {
               {/* Product Details */}
               <h3 className="product-name"> {productInfo?.name} </h3>
               <p className="product-description">
-                Description: <span className="font-normal">{productInfo?.description}</span>
+                Description: <span className="font-normal block">{productInfo?.description}</span>
               </p>
               <p className="product-quantity">
                 Quantité: <span className="font-normal">{productInfo?.quantity}</span>
@@ -201,7 +211,10 @@ function Product() {
                 </div>
               </div>
               <div className="flex flex-col gap-6 md:flex-row">
-                <button className="add-btn" onClick={() => addToCart({ productInfo, quantity })}>
+                <button
+                  className="add-btn"
+                  onClick={() => handleAddToCart({ productInfo, quantity })}
+                >
                   <ShoppingBagIcon className="w-5 h-5 mr-2" />
                   Ajouter au panier
                 </button>

@@ -93,6 +93,10 @@
   font-medium text-gray-500 shadow-sm hover:bg-gray-50;
 }
 
+.sell-btn {
+  @apply text-sm bg-blue-color hover:bg-blue-dark-color p-2 text-white rounded duration-100 ease-in-out;
+}
+
 .update-btn {
   @apply flex items-center gap-2 text-xs lg:text-sm font-medium border hover:bg-gray-200 p-2 rounded-md cursor-pointer duration-100 ease-in-out;
 }
@@ -181,6 +185,31 @@ section {
 
 .review-comment {
   @apply text-gray-500 text-sm;
+}
+
+.btn {
+  @apply text-sm bg-blue-500 hover:bg-blue-color px-3 py-2 text-white 
+  rounded-md transition-all duration-300;
+}
+
+.flex-box {
+  @apply flex justify-between items-center;
+}
+
+/* Cart */
+.quantity-select {
+  @apply max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base 
+  font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none 
+  focus:ring-1 focus:ring-indigo-500 sm:text-sm cursor-pointer;
+}
+
+.checkout-btn {
+  @apply w-full rounded-md border border-transparent bg-blue-color py-3 px-4 text-base font-medium 
+  text-white shadow-sm hover:bg-blue-color focus:outline-none focus:ring-2 focus:ring-blue-color
+  focus:ring-offset-2 focus:ring-offset-gray-50 duration-200 ease-in-out;
+}
+.cart-alert {
+  @apply w-[9px] h-[9px] bg-red-600 absolute top-1 right-5 md:right-6 border border-white rounded-full;
 }
 
 /* Swipper styles */

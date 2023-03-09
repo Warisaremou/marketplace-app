@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { productType } from "../types/entities";
 
 type Props = {
-  product: productType;
+  productInfo: productType;
   quantity: number;
 };
 
@@ -15,7 +15,7 @@ const setToast = (message: string) => {
       borderRadius: "5px",
       background: "#16A23A",
       color: "#fff",
-      fontSize: "12px",
+      fontSize: "15px",
     },
   });
 };
@@ -30,32 +30,35 @@ export const CartContext = createContext({
 export const CartContextProvider = ({ children }: any) => {
   const { getItem, setLocalStorage } = useLocalStorage();
   const savedCart = getItem("cart");
-
-  const [cart, updateCart] = useState<Props[]>(savedCart ? JSON.parse(savedCart) : []);
+const [cart, updateCart] = useState<Props[]>(savedCart ? JSON.parse(savedCart) : []);
 
   useEffect(() => {
     setLocalStorage("cart", cart);
   }, [cart]);
 
-  const addToCart = ({ product, quantity }: Props) => {
-    const currentProductAdded = cart.find((item) => item.product.id == product.id);
-    // console.log(productId);
+  const addToCart = ({ productInfo, quantity }: Props) => {
+    const currentProductAdded = cart.find((item) => item?.productInfo?.id == productInfo?.id);
+    // console.log(productInfo);
     // const productId: number = product.id;
     if (currentProductAdded) {
-      const cartFilteredCurrentProduct: any = cart.filter((item) => item.product.id !== product.id);
+      const cartFilteredCurrentProduct: any = cart.filter(
+        (item) => item.productInfo?.id !== productInfo?.id
+      );
       updateCart([
         ...cartFilteredCurrentProduct,
-        { product, quantity: currentProductAdded.quantity + 1 },
+        { productInfo, quantity: currentProductAdded.quantity + 1 },
       ]);
-      setToast("Le produit à été mis à jour avec succès ");
+      // setToast("Le produit à été mis à jour avec succès ");
     } else {
-      setToast("Produit ajouté au panier avec succès");
-      updateCart([...cart, { product, quantity }]);
+      // setToast("Produit ajouté au panier avec succès");
+      updateCart([...cart, { productInfo, quantity }]);
     }
   };
 
   const removeFromCart = (productId: number) => {
-    const cartFilteredCurrentProduct: any = cart.filter((item) => item.product.id !== productId);
+    const cartFilteredCurrentProduct: any = cart.filter(
+      (item) => item.productInfo?.id !== productId
+    );
     updateCart([...cartFilteredCurrentProduct]);
     setToast("Le produit à été supprimé avec succès ");
   };

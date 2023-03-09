@@ -36,8 +36,8 @@ function ProductCard({ product }: Props) {
             <p>{product.price} FCFA</p>
           </div>
           <span className="text-[12px] line text-gray-600">
-            {product.description.substring(0, 50)}
-            {product.name.length >= 50 && "..."}
+            {product.description.substring(0, 55)}
+            {product.description.length >= 55 && "..."}
           </span>
         </div>
       </Link>

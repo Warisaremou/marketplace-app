@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckIcon, QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { ArrowLongRightIcon } from "@heroicons/react/24/solid";
@@ -12,6 +12,11 @@ function Cart() {
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
 
+  useEffect(() => {
+    console.log(cart);
+  }, []);
+
+  // Steps functions
   const nextStep = () => {
     if (formNo === 1) {
       setFormNo(formNo + 1);
