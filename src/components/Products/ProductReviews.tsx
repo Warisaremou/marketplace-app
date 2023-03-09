@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { getReview } from "../../services/reviews/getReview";
 import { reviewsType } from "../../types/entities";
+import Avatar from "../../utils/Avatar";
+import { Link } from "react-router-dom";
 
 function ProductReviews(id: any) {
   const [comment, setComment] = useState<reviewsType>({} as reviewsType);
@@ -26,14 +28,14 @@ function ProductReviews(id: any) {
   }
 
   return (
-    <div className="max-w-[600px] flex items-start gap-2 text-justify mb-5">
-      {/* {comment.user?.photo == null ? (
-        <Avatar rounded={true} size="sm" />
-      ) : (
-        <Avatar img={comment.user?.photo?.path} rounded={true} />
-      )} */}
+    <div className="max-w-[600px] flex items-start gap-x-2 text-justify mb-5">
+      <Link to={`member/${comment?.user?.id}`}>
+        {comment.user?.photo == null ? <Avatar /> : <Avatar src={comment.user?.photo?.path} />}
+      </Link>
       <div className="pb-5 border-b flex-1">
-        <h3>{comment.user?.username}</h3>
+        <Link to={`member/${comment?.user?.id}`}>
+          <h3>{comment.user?.username}</h3>
+        </Link>
         <p className="text-gray-400 text-sm">
           {new Intl.DateTimeFormat(locale, options).format(date)}
         </p>

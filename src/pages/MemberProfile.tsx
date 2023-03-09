@@ -1,17 +1,37 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { PhoneIcon } from "@heroicons/react/20/solid";
 import {
   BookmarkIcon,
+  CheckIcon,
   EllipsisHorizontalIcon,
   InboxIcon,
   UserIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
+import { getMemberInfo } from "../services/user/getMemberInfo";
+import { userType } from "../types/entities";
+import UserDefaultProfile from "../utils/UserDefaultProfile";
+import { clsx } from "clsx";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 function MemberProfile() {
+  const { id } = useParams();
+  const [memberInfo, setMemberInfo] = useState<userType>({} as userType);
+  const [isFollowed, setIsFollowed] = useState(false);
+
+  useEffect(() => {
+    getMemberInfo(id)
+      .then((res) => {
+        console.log(res.data);
+        setMemberInfo(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const profile = {
     name: "Ricardo Cooper",
     imageUrl:
@@ -54,22 +74,34 @@ function MemberProfile() {
       <div>
         <div>
           <img className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" />
+          {/* {console.log(memberInfo)} */}
         </div>
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-            <div className="flex">
-              <img
+            <div className="profile-bg-cover bg-green-600 relative border-4">
+              {/* <img
                 className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                 src={profile.imageUrl}
                 alt=""
-              />
+              /> */}
+              {memberInfo.photo == null ? (
+                <UserDefaultProfile />
+              ) : (
+                <img
+                  src={memberInfo.photo.path}
+                  alt=""
+                  className="h-full w-full object-cover outline-none relative mx-auto"
+                />
+              )}
             </div>
             <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-              <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
-                <h1 className="font-medium text-xl text-gray-600">{profile.name}</h1>
+              <div className="mt-0 min-w-0 flex-1 sm:hidden 2xl:block">
+                <h1 className="font-medium text-lg text-gray-600 text-center">
+                  {memberInfo?.username}
+                </h1>
               </div>
               {/* Mobile view */}
-              <div className="flex md:hidden items-center text-xs lg:text-sm gap-5 py-3 mt-2">
+              <div className="grid grid-cols-3 mb-2 md:hidden items-center text-xs lg:text-sm gap-5 py-3 mt-2">
                 <p className="flex flex-col items-center lg:flex-row gap-1 text-gray-700 font-medium">
                   <span>3</span> publications
                 </p>
@@ -85,10 +117,25 @@ function MemberProfile() {
               <div className="text-xs md:text-sm flex items-center justify-around gap-x-5">
                 <button
                   type="button"
-                  className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-color focus:ring-offset-2"
+                  className={clsx(
+                    "inline-flex justify-center items-center rounded-md px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50",
+                    isFollowed
+                      ? "bg-gray-100 border border-gray-300"
+                      : "bg-blue-color hover:bg-blue-dark-color text-white focus:ring-blue-color focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  )}
+                  onClick={() => setIsFollowed(!isFollowed)}
                 >
-                  <UserPlusIcon className="h-5 w-5 text-gray-500 mr-2" aria-hidden="true" />
-                  <span>Suivre</span>
+                  {!isFollowed ? (
+                    <>
+                      <UserPlusIcon className="h-5 w-5 text-white mr-2" aria-hidden="true" />
+                      <span>Suivre</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckIcon className="h-5 w-5 text-gray-500 mr-2" aria-hidden="true" />
+                      <span>Suivie</span>
+                    </>
+                  )}
                 </button>
                 <button
                   type="button"
@@ -104,7 +151,7 @@ function MemberProfile() {
             </div>
           </div>
           <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
-            <h1 className="font-medium text-xl text-gray-600">{profile.name}</h1>
+            <h1 className="font-medium text-xl text-gray-600 ml-1">{memberInfo?.username}</h1>
           </div>
 
           {/* Desktop wiew */}

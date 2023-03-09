@@ -5,7 +5,7 @@ function Skeleton() {
     <>
       <div className="flex items-center pb-3">
         <svg
-          className="text-gray-200 w-12 h-12 dark:text-gray-700"
+          className="text-gray-300 w-12 h-12"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -18,13 +18,13 @@ function Skeleton() {
           ></path>
         </svg>
         <div>
-          <div className="w-16 h-3 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+          <div className="w-16 h-3 bg-gray-300 rounded-full"></div>
         </div>
       </div>
       <div role="status" className="flex gap-14 flex-col md:flex-row animate-pulse mb-2">
-        <div className="flex items-center justify-center md:w-3/4 h-80 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+        <div className="flex items-center justify-center md:w-3/4 h-80 bg-gray-300 rounded sm:w-96">
           <svg
-            className="w-28 h-28 text-gray-200"
+            className="w-28 h-28 text-gray-300"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             fill="currentColor"
@@ -34,15 +34,15 @@ function Skeleton() {
           </svg>
         </div>
         <div className="w-full">
-          <div className="h-6 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-3"></div>
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-3"></div>
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-3"></div>
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-3"></div>
-          <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-3"></div>
+          <div className="h-6 bg-gray-300 rounded-full w-48 mb-4"></div>
+          <div className="h-3 bg-gray-300 rounded-full w-full mb-3"></div>
+          <div className="h-3 bg-gray-300 rounded-full w-full mb-3"></div>
+          <div className="h-3 bg-gray-300 rounded-full w-full mb-3"></div>
+          <div className="h-3 bg-gray-300 rounded-full w-full mb-3"></div>
+          <div className="h-3 bg-gray-300 rounded-full w-full mb-3"></div>
           <div className="flex flex-col md:flex-row gap-6 justify-between">
-            <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-700 w-50 md:w-28"></div>
-            <div className="h-8 bg-gray-200 rounded-lg dark:bg-gray-700 w-50 md:w-28"></div>
+            <div className="h-8 bg-gray-300 rounded-lg w-50 md:w-28"></div>
+            {/* <div className="h-8 bg-gray-300 rounded-lg w-50 md:w-28"></div> */}
           </div>
         </div>
         <span className="sr-only">Loading...</span>

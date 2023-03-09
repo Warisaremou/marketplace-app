@@ -36,6 +36,7 @@ function UserProfile() {
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
   }
+  console.log(meData);
 
   return (
     <div className="pt-5 items-center px-4 md:px-20">
@@ -44,7 +45,7 @@ function UserProfile() {
           <div
             className={clsx(
               "profile-bg-cover relative border-[3px]",
-              meData?.photo && "border-green-500"
+              meData?.status?.id == 1 && "border-green-500"
             )}
           >
             {meData.photo == null ? (
