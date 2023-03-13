@@ -1,4 +1,6 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { getAllCategories } from "../services/categories/getAllCategories";
+import { UserLogged } from "../context/UserLoggedContext";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,11 +8,12 @@ import { z } from "zod";
 import { UserLoggedContext } from "../context/LoaderContext";
 import CoverPhoto from "../utils/CoverPhoto";
 import Loader from "../utils/Loader";
+import { productStatus } from "../data/productStatus";
 
 const schema = z
   .object({
     name: z.string().min(1, "Veuillez entrer le nom du produit !"),
-    mark: z.string().min(1, "Veuillez entrer la marque du produit !"), //Au moins 30 mots
+    mark: z.string().min(1, "Veuillez entrer la marque du produit !"),
     price: z
       .string()
       .min(1, "Veuillez entrer le prix du produit !")
@@ -19,19 +22,37 @@ const schema = z
       .string()
       .min(1, "Veuillez entrer la quantite du produit !")
       .transform((value) => Number(value)),
-    category: z.string().min(1, "Renseignez la catégorie du produit !"),
-    status: z.string().min(1, "Renseignez l'état du produit !"),
+    category: z
+      .string()
+      .min(1, "Renseignez la catégorie du produit !")
+      .transform((value) => Number(value)),
+    status: z
+      .string()
+      .min(1, "Renseignez l'état du produit !")
+      .transform((value) => Number(value)),
     description: z
       .string()
       .min(30, "Veuillez décrire votre produit !")
-      .max(200, "La description du produit doit contenir au maximum 200 caractères !"),
+      .max(300, "La description du produit doit contenir au maximum 300 caractères !"),
   })
   .required();
 
 function SellProduct() {
-  const { loader, setLoader } = UserLoggedContext();
+  const { meData } = UserLogged();
   const navigate = useNavigate();
-  const imageNumber: number[] = [1, 2, 3];
+
+  const [allCategories, setAllCategories] = useState<{ id: number; name: string }[]>([]);
+  const [fileId, setFileId] = useState("");
+  const { loader, setLoader } = UserLoggedContext();
+
+  // getting all categories
+  useEffect(() => {
+    getAllCategories()
+      .then((res) => {
+        setAllCategories(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const {
     register,
@@ -45,6 +66,7 @@ function SellProduct() {
     setLoader(true);
 
     setTimeout(() => {
+      console.log(meData.id);
       console.log(data);
       setLoader(false);
     }, 3000);
@@ -56,11 +78,7 @@ function SellProduct() {
       <div className="py-4 md:py-10 px-1 md:px-8 bg-white text-sm font-medium md:text-base">
         <p className="text-gray-500">Ajoutez trois photos de votre produit</p>
         <div className="grid lg:grid-cols-3  gap-5">
-          {imageNumber.map((number) => (
-            <div key={number}>
-              <CoverPhoto />
-            </div>
-          ))}
+            <CoverPhoto fileId={fileId} setFileId={setFileId} />
         </div>
       </div>
 
@@ -107,14 +125,12 @@ function SellProduct() {
                 <label className="text-gray-600 mb-2 block">Catégorie</label>
               </div>
               <select id="category" {...register("category")} className="select-input">
-                {/* <option value="">Selectionez la categorie</option>
+                <option value="">Selectionez la categorie</option>
                 {allCategories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
                   </option>
-                ))} */}
-                <option value="vetements">Vêtements</option>
-                <option value="t-shirt">T-Shirt</option>
+                ))}
               </select>
               {errors.category && (
                 <small className="errors block pt-3">{`${errors.category?.message}`}</small>
@@ -125,8 +141,11 @@ function SellProduct() {
                 <label className="text-gray-600 mb-2 block">Etat du produit</label>
               </div>
               <select {...register("status")} className="select-input">
-                <option value="Neuf">Neuf</option>
-                <option value="Utilise">Utilisé</option>
+                {productStatus.map((status) => (
+                  <option key={status.id} value={status.id}>
+                    {status.name}
+                  </option>
+                ))}
               </select>
               {errors.status && <small className="errors">{`${errors.status?.message}`}</small>}
             </div>

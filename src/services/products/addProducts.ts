@@ -1,28 +1,15 @@
-import axios from "axios";
+import { sellProductType } from "../../types/entities";
 import axiosInstance from "../axiosInstance";
 import { PRODUCTS_URL } from "../config";
 
 type productProps = {
-  name: string;
-  mark: string;
-  price: number;
-  quantity: number;
-  categoryId: number;
-  statusId: number;
-  description: string;
+  productData: sellProductType;
+  pictureId: string;
   sellerId: number;
 };
 
-export const addProducts = (
-  name: string,
-  description: string,
-  price: number,
-  quantity: number,
-  mark: string,
-  sellerId: number,
-  categoryId: number,
-  statusId: number
-) => {
+export const addProducts = ({ productData, pictureId, sellerId }: productProps) => {
+  const { name, description, mark, price, quantity, statusId, categoryId } = productData;
   return axiosInstance.post(PRODUCTS_URL, {
     name,
     description,
@@ -34,6 +21,9 @@ export const addProducts = (
     },
     category: {
       id: categoryId,
+    },
+    pictures: {
+      id: pictureId,
     },
     status: {
       id: statusId,

@@ -17,7 +17,21 @@ type productType = {
   pictures: Photo;
 };
 
-export type reviewsType = {
+type sellProductType = {
+  id: number;
+  name: string;
+  mark: string;
+  description: string;
+  price: number;
+  quantity: number;
+  statusId: number;
+  seller: userType;
+  categoryId: number;
+  reviews: [Reviews];
+  pictures: Photo;
+};
+
+type reviewsType = {
   id: number;
   rating: number;
   review: string;
@@ -25,13 +39,14 @@ export type reviewsType = {
   createdAt: date;
 };
 
-export type userType = {
+type userType = {
   id: number;
   email: string;
   firstName: string;
   lastName: string;
   username: string;
   country: string;
+  password: string;
   address?: string;
   phone?: number;
   description?: string;
@@ -44,7 +59,7 @@ type Photo = {
   path: string;
 };
 
-export type cartType = {
+type cartType = {
   id: number;
   user: userType;
   products: productType;
@@ -52,4 +67,4 @@ export type cartType = {
   status: Status;
 };
 
-export { productType };
+export { productType, sellProductType, reviewsType, userType, cartType };

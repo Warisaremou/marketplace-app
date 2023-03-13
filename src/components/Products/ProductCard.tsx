@@ -25,7 +25,7 @@ function ProductCard({ product }: Props) {
           </span>
         </div>
         <div className="product-img">
-          <img src={product.pictures.path[0]} alt="t-shirt" />
+          <img src={product.pictures.path[0]} alt="t-shirt" className="w-full h-full object-cover" />
         </div>
         <div className="p-2">
           <div className="flex justify-between text-base font-medium text-gray-600">

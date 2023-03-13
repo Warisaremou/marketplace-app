@@ -11,6 +11,11 @@ function Cart() {
   const { cart, removeFromCart } = CartData();
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
+  const total = cart.reduce(
+    (acc: number, item: { productInfo: { price: number }; quantity: number }) =>
+      acc + item.productInfo?.price * item?.quantity,
+    0
+  );
 
   useEffect(() => {
     console.log(cart);
@@ -49,9 +54,9 @@ function Cart() {
         </div>
       ) : // If the cart is not empty
       formNo == 1 ? (
-        <FirstStep nextStep={nextStep} cart={cart} removeFromCart={removeFromCart} />
+        <FirstStep nextStep={nextStep} cart={cart} removeFromCart={removeFromCart} total={total} />
       ) : formNo == 2 ? (
-        <SecondStep nextStep={nextStep} previousStep={previousStep} />
+        <SecondStep nextStep={nextStep} previousStep={previousStep} cart={cart} total={total} />
       ) : (
         <ThirdStep />
       )}

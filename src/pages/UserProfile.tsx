@@ -36,7 +36,7 @@ function UserProfile() {
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
   }
-  console.log(meData);
+  // console.log(meData);
 
   return (
     <div className="pt-5 items-center px-4 md:px-20">

@@ -128,20 +128,20 @@ function Product() {
           <div className="flex gap-14 flex-col md:flex-row">
             <div className="md:w-3/4">
               <div className="w-full h-[23rem] md:h-80 lg:h-[30rem] xl:h-[37rem] overflow-hidden rounded-md bg-cover">
-                <img src={mainImage} className="" />
+                <img src={mainImage} className="h-full w-full object-cover" />
               </div>
               <div className="grid grid-cols-3 gap-4 lg:gap-6 mt-6">
                 {productImgList.map((productImg, index) => (
                   <div
                     className={clsx(
-                      "w-auto h-20 sm:h-[100px] md:h-[85px] lg:h-24 xl:h-36 overflow-hidden rounded-md bg-cover cursor-pointer hover:opacity-70 duration-200",
+                      "w-auto h-24 md:h-[85px] lg:h-24 xl:h-36 overflow-hidden rounded-md bg-cover cursor-pointer hover:opacity-70 duration-200",
                       mainImage == productImg && "opacity-70 border-4 border-blue-color"
                     )}
                     key={`${index}-${productImg}}`}
                   >
                     <img
                       src={productImg}
-                      className={clsx("")}
+                      className="w-full h-full object-cover"
                       onClick={() => setMainImage(productImg)}
                     />
                   </div>

@@ -9,7 +9,7 @@ export default function Steper({ formArray, formNo }: steperProps) {
   // console.log(formNo);
 
   return (
-    <div className="pt-10">
+    <div className="md:pt-10 mb-20 md:mb-10">
       <nav className="flex items-center justify-center" aria-label="Progress">
         <p className="text-sm font-medium">
           Etape {formNo} sur {formArray.length}
