@@ -8,7 +8,6 @@ export const UserLoggedContext = createContext({
   setMeData: (value: userType) => {},
   registerMail: "",
   setRegisterMail: (value: string) => {},
-  connectUser: () => {},
 });
 
 export const UserLoggedContextProvider = ({ children }: any) => {
@@ -17,26 +16,15 @@ export const UserLoggedContextProvider = ({ children }: any) => {
   const { removeFromLocalStorage } = useLocalStorage();
 
   useEffect(() => {
-    connectUser();
-  }, []);
-  async function connectUser() {
-    await connectMe()
+    connectMe()
       .then((res) => {
-        // console.log(res.data);
         setMeData(res.data);
       })
-      .catch((error) => {
-        // console.log(error);
-        // removeFromLocalStorage("accessToken");
-      });
-  }
-
-  //   console.log(meData);
+      .catch((error) => {});
+  }, []);
 
   return (
-    <UserLoggedContext.Provider
-      value={{ meData, setMeData, connectUser, registerMail, setRegisterMail }}
-    >
+    <UserLoggedContext.Provider value={{ meData, setMeData, registerMail, setRegisterMail }}>
       {children}
     </UserLoggedContext.Provider>
   );

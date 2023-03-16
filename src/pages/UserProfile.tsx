@@ -1,23 +1,50 @@
-import { useState } from "react";
-// import UserInfo from "../components/UserInfo";
+import { useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { UserLogged } from "./../context/UserLoggedContext";
 import UserDefaultProfile from "../utils/UserDefaultProfile";
-import { BookmarkIcon, InboxIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { getFollowers } from "../services/Follows/getFollowers";
 import { Link } from "react-router-dom";
+import {
+  BookmarkIcon,
+  EllipsisVerticalIcon,
+  InboxIcon,
+  PencilSquareIcon,
+} from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
+import { FollowsData, UserFollowContext } from "../context/UserFollowsContext";
+import { getFollowings } from "../services/Follows/getFollowings";
 
 function UserProfile() {
-  const [open, setOpen] = useState(false);
+  const [pop, OpenPop] = useState(false);
   const { meData } = UserLogged();
+  const { setUserFollowers, setUserFollowings, userFollowings, userFollowers } = FollowsData();
   const { removeFromLocalStorage, getItem } = useLocalStorage();
   const userToken = getItem("accessToken");
+
+  useEffect(() => {
+    // console.log(meData.id);
+    getFollowers(meData?.id)
+      .then((res) => {
+        console.log(res.data);
+        setUserFollowers(res.data);
+      })
+      .catch((err) => console.log(err));
+    getFollowings(meData?.id)
+      .then((res) => {
+        console.log(res.data);
+        setUserFollowings(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const disconnectMe = () => {
     removeFromLocalStorage("accessToken");
     window.location.reload();
   };
 
+  function classNames(...classes: any[]) {
+    return classes.filter(Boolean).join(" ");
+  }
   const tabs = [
     {
       name: "Publications",
@@ -32,11 +59,6 @@ function UserProfile() {
       current: false,
     },
   ];
-
-  function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(" ");
-  }
-  // console.log(meData);
 
   return (
     <div className="pt-5 items-center px-4 md:px-20">
@@ -75,32 +97,40 @@ function UserProfile() {
           </div>
 
           <div className="flex items-center text-xs lg:text-sm gap-5 py-3 mt-2">
-            <p className="flex flex-col items-center lg:flex-row gap-1 text-gray-700 font-medium">
+            <p className="user-actions-follows">
               <span>3</span> publications
             </p>
-            <p className="flex flex-col items-center lg:flex-row gap-1 text-gray-700 font-medium">
-              <span>12</span> Abonnés
-            </p>
-            <p className="flex flex-col items-center lg:flex-row gap-1 text-gray-700 font-medium">
-              <span>4</span> Abonnement
-            </p>
+            <Link to="followers" className="user-actions-follows">
+              <span>{userFollowers.length}</span> Abonnés
+            </Link>
+            <Link to="followings" className="user-actions-follows">
+              <span>{userFollowings.length}</span> Abonnement
+            </Link>
           </div>
-
-          {/* <UserInfo open={open} setOpen={setOpen} meData={meData} /> */}
-          {/* <button
-            type="button"
-            onClick={() => disconnectMe()}
-            className="flex justify-center mt-2 bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-xs"
-          >
-            Se déconnecter
-          </button> */}
         </div>
-        <div className="p-2 text-sm text-gray-700 flex md:block justify-center">
-          <button onClick={() => setOpen(true)} type="button" className="update-btn">
-            <PencilSquareIcon className="w-5 h-5 stroke-gray-700" />
-            Modifier profile
-          </button>
-        </div>
+        {userToken && (
+          <div className="relative">
+            <div className="flex justify-center">
+              <div className="p-2 text-sm text-gray-700 flex md:block justify-center">
+                <button type="button" className="update-btn">
+                  <PencilSquareIcon className="w-5 h-5 stroke-gray-700" />
+                  Modifier profile
+                </button>
+              </div>
+              <EllipsisVerticalIcon
+                onClick={() => OpenPop(!pop)}
+                className="h-6 w-6 bg-gray-100 rounded-sm my-auto stroke-gray-600 md:my-0 md:mt-4 cursor-pointer"
+              />
+            </div>
+            {pop && (
+              <div className="absolute top-16 right-6 max-md: h-auto bg-red-500 z-10 rounded-lg">
+                <p onClick={() => disconnectMe()} className="text-sm p-2 text-white cursor-pointer">
+                  Se déconnecter
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Tabs */}

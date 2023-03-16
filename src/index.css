@@ -22,6 +22,10 @@
   bottom-1 md:bottom-0 lg:bottom-1 z-10 right-[33%] md:right-[20%] lg:right-[26%] xl:right-[34%] 2xl:right-[42%];
 }
 
+.user-actions-follows{
+  @apply flex flex-col items-center lg:flex-row gap-1 text-gray-700 font-medium cursor-pointer;
+}
+
 /* Navigation links styles */
 .nav-link {
   @apply flex gap-x-4;

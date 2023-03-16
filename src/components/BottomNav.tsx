@@ -6,9 +6,12 @@ import {
   Squares2X2Icon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
+import { UserLogged } from "../context/UserLoggedContext";
 import CustomLink from "./CustomLink";
 
 function BottomNav() {
+  const { meData } = UserLogged();
+
   const bottomMenu = [
     {
       name: "Acceuil",
@@ -32,7 +35,7 @@ function BottomNav() {
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: `profile/${meData?.username}`,
       icon: UserCircleIcon,
     },
   ];

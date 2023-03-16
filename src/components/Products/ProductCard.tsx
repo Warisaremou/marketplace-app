@@ -20,7 +20,7 @@ function ProductCard({ product }: Props) {
             <Avatar src={product.seller?.photo?.path} />
           )}
           <span className="pl-2 text-xs font-medium flex items-center">
-            {product.seller?.username}{" "}
+            {product.seller?.username}
             {product.seller?.id >= 10 && <CheckBadgeIcon className="h-4 fill-blue-color" />}{" "}
           </span>
         </div>
@@ -28,12 +28,12 @@ function ProductCard({ product }: Props) {
           <img src={product.pictures.path[0]} alt="t-shirt" className="w-full h-full object-cover" />
         </div>
         <div className="p-2">
-          <div className="flex justify-between text-base font-medium text-gray-600">
+          <div className="flex justify-between text-sm font-medium text-gray-600">
             <h4>
-              {product.name.substring(0, 14)}
-              {product.name.length >= 14 && "..."}
+              {product.name.substring(0, 11)}
+              {product.name.length >= 11 && "..."}
             </h4>
-            <p>{product.price} FCFA</p>
+            <p className="text-sm">{product.price} FCFA</p>
           </div>
           <span className="text-[12px] line text-gray-600">
             {product.description.substring(0, 55)}

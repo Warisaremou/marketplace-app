@@ -77,7 +77,7 @@ function SellProduct() {
       <h1 className="text-xl font-medium py-4">Vendez votre produit</h1>
       <div className="py-4 md:py-10 px-1 md:px-8 bg-white text-sm font-medium md:text-base">
         <p className="text-gray-500">Ajoutez trois photos de votre produit</p>
-        <div className="grid lg:grid-cols-3  gap-5">
+        <div className="grid lg:grid-cols-3 gap-5">
             <CoverPhoto fileId={fileId} setFileId={setFileId} />
         </div>
       </div>

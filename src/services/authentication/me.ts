@@ -10,8 +10,6 @@ export const connectMe = () => {
 
   const pastToken = Token ? JSON.parse(Token) : "";
 
-  //   console.log(pastToken);
-
   return axios.get(ME_URL, {
     headers: {
       authorization: "Bearer " + pastToken,
@@ -19,6 +17,3 @@ export const connectMe = () => {
   });
 };
 
-// export const disconnectMe = () => {
-//   return axios.delete()
-// }

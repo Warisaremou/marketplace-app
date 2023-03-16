@@ -16,11 +16,13 @@ import MobileSideBar from "./MobileSideBar";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Bars2Icon, InformationCircleIcon } from "@heroicons/react/20/solid";
 import CustomLink2 from "./CustomLink2";
+import { UserLogged } from "../context/UserLoggedContext";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
   const { getItem } = useLocalStorage();
   const userToken = getItem("accessToken");
+  const { meData } = UserLogged();
 
   const navMenu = [
     {
@@ -40,7 +42,7 @@ function NavBar() {
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: `profile/${meData?.username}`,
       icon: UserCircleIcon,
     },
   ];

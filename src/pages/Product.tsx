@@ -19,7 +19,7 @@ import CartModal from "../utils/CartModal";
 
 function Product() {
   const { id } = useParams();
-  const { meData } = UserLogged();
+  // const { meData } = UserLogged();
   const [productImgList, setProductImgList] = useState<string[]>([]);
   const [ratingAverage, setRating] = useState<number[]>([]);
   const [quantity, setQuantity] = useState<number>(1);

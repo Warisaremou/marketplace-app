@@ -7,34 +7,40 @@ type coverProps = {
 };
 
 function CoverPhoto({ fileId, setFileId }: coverProps) {
-  const [files, setFiles] = useState<{ formData: FormData }[]>([]);
+  const [image, setImage] = useState('');
+  const [files, setFiles] = useState([]);
   // const [count, setCount] = useState(1);
 
   useEffect(() => {
     if (files.length == 3) {
       console.log(files);
-      productImages(files)
-        .then((res) => {
-          console.log(res.data);
-          setFileId(res.data.id);
-          console.log(fileId);
-        })
-        .catch((error) => console.log(error));
+      // productImages(files)
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     setFileId(res.data.id);
+      //     console.log(fileId);
+      //   })
+      //   .catch((error) => console.log(error));
     }
   }, [files]);
 
-  const onFileChange = (fileChangeEvent: any) => {
+  const onFileChange = (e: any) => {
+    // console.log(fileChangeEvent);
     // async function uploadFiles() {
     //   const allFiles = (await files.length) == 3;
     //   console.log(files);
     // }
-    const file = fileChangeEvent.target.files[0];
-    let formData = new FormData();
-    formData.append(`image`, file, file.name);
+    console.log(e.target.files, "gcgf");
+    console.log(e.target.files[0], "gcgf");
+    setImage(e.target.files[0]);
+    // const file = e.target.files[0];
+    // let formData = new FormData();
+    // console.log(formData.append(`image`, file, file.name));
     // setCount(count + 1);
-    console.log(formData.get(`image`));
+    // console.log(formData.get(`image`));
+    // const newFormData = formData.append(`image`, file, file.name)
 
-    setFiles((currentValue) => [...currentValue, { formData }]);
+    // setFiles((currentValue) => [...currentValue, { newFormData }]);
 
     // uploadFiles();
 
@@ -76,7 +82,6 @@ function CoverPhoto({ fileId, setFileId }: coverProps) {
               >
                 <input
                   id="file-upload"
-                  name="file-upload"
                   type="file"
                   className="text-gray-500 focus:ring-0 cursor-pointer"
                   onChange={(e) => onFileChange(e)}

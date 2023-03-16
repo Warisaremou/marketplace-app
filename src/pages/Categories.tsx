@@ -77,7 +77,7 @@ function Categories() {
     getAllProducts()
       .then((res) => {
         const data = res.data;
-        console.log(data);
+        // console.log(data);
         // if array is empty
         if (data.length === 0) {
           setIsLoading(true);
