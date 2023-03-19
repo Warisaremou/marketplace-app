@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 // import QuantitySelect from "../components/QuantitySelect";
-import { ProductData } from "../context/ProductContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOneProduct } from "./../services/products/getOneProduct";
 import { productType } from "../types/entities";
-import { CheckBadgeIcon, PhoneIcon, ShoppingBagIcon } from "@heroicons/react/24/solid";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {
+  CheckBadgeIcon,
+  PhoneIcon,
+  ShoppingBagIcon,
+  StarIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/solid";
 import ProductReviews from "../components/Products/ProductReviews";
 import clsx from "clsx";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Skeleton from "./../utils/Skeleton";
 import { toast } from "react-hot-toast";
 import { CartData } from "./../context/CartContext";
 import { addReview } from "./../services/reviews/addReview";
 import Avatar from "../utils/Avatar";
-import { UserLogged } from "../context/UserLoggedContext";
 import CartModal from "../utils/CartModal";
 
 function Product() {
   const { id } = useParams();
-  // const { meData } = UserLogged();
   const [productImgList, setProductImgList] = useState<string[]>([]);
   const [ratingAverage, setRating] = useState<number[]>([]);
   const [quantity, setQuantity] = useState<number>(1);

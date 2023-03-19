@@ -7,7 +7,7 @@ type coverProps = {
 };
 
 function CoverPhoto({ fileId, setFileId }: coverProps) {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [files, setFiles] = useState([]);
   // const [count, setCount] = useState(1);
 
@@ -24,15 +24,24 @@ function CoverPhoto({ fileId, setFileId }: coverProps) {
     }
   }, [files]);
 
-  const onFileChange = (e: any) => {
+  const handleFileChange = (e: any) => {
     // console.log(fileChangeEvent);
     // async function uploadFiles() {
     //   const allFiles = (await files.length) == 3;
     //   console.log(files);
     // }
-    console.log(e.target.files, "gcgf");
-    console.log(e.target.files[0], "gcgf");
-    setImage(e.target.files[0]);
+    // console.log(e.target.files, "gcgf");
+    // console.log(e.target.files[0], "gcgf");
+    // setImage(e.target.files[0]);
+
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append("image", files[0]);
+    }
+
+    console.log(files)
+
     // const file = e.target.files[0];
     // let formData = new FormData();
     // console.log(formData.append(`image`, file, file.name));
@@ -84,7 +93,7 @@ function CoverPhoto({ fileId, setFileId }: coverProps) {
                   id="file-upload"
                   type="file"
                   className="text-gray-500 focus:ring-0 cursor-pointer"
-                  onChange={(e) => onFileChange(e)}
+                  onChange={(e) => handleFileChange(e)}
                 />
               </label>
             </div>
