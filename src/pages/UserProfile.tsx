@@ -21,17 +21,17 @@ function UserProfile() {
   const { removeFromLocalStorage, getItem } = useLocalStorage();
   const userToken = getItem("accessToken");
 
+  // console.log(meData.productsForSale);
   useEffect(() => {
-    // console.log(meData.id);
     getFollowers(meData?.id)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setUserFollowers(res.data);
       })
       .catch((err) => console.log(err));
     getFollowings(meData?.id)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setUserFollowings(res.data);
       })
       .catch((err) => console.log(err));
@@ -96,17 +96,19 @@ function UserProfile() {
             )}
           </div>
 
-          <div className="flex items-center text-xs lg:text-sm gap-5 py-3 mt-2">
-            <p className="user-actions-follows">
-              <span>3</span> publications
-            </p>
-            <Link to="followers" className="user-actions-follows">
-              <span>{userFollowers.length}</span> Abonnés
-            </Link>
-            <Link to="followings" className="user-actions-follows">
-              <span>{userFollowings.length}</span> Abonnement
-            </Link>
-          </div>
+          {userToken && (
+            <div className="flex items-center text-xs lg:text-sm gap-5 py-3 mt-2">
+              <p className="user-actions-follows">
+                <span>{meData?.productsForSale?.length}</span> publications
+              </p>
+              <Link to="followers" className="user-actions-follows">
+                <span>{meData?.followers?.length}</span> Abonnés
+              </Link>
+              <Link to="followings" className="user-actions-follows">
+                <span>{meData?.followings?.length}</span> Abonnement
+              </Link>
+            </div>
+          )}
         </div>
         {userToken && (
           <div className="relative">
@@ -119,7 +121,7 @@ function UserProfile() {
               </div>
               <EllipsisVerticalIcon
                 onClick={() => OpenPop(!pop)}
-                className="h-6 w-6 bg-gray-100 rounded-sm my-auto stroke-gray-600 md:my-0 md:mt-4 cursor-pointer"
+                className="h-6 w-6 bg-gray-100 rounded-full my-auto stroke-gray-600 md:my-0 md:mt-4 cursor-pointer"
               />
             </div>
             {pop && (

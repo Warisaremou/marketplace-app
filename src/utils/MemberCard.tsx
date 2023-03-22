@@ -1,18 +1,45 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import FollowButton from "./FollowButton";
 import { userType } from "../types/entities";
 import Avatar from "./Avatar";
 
 type MemberProps = {
-  memberData: userType;
+  following: userType;
+  follower?: userType;
 };
 
-function MemberCard({ memberData }: MemberProps) {
+function MemberCard({ following, follower }: MemberProps) {
+  const [isFollowed, setIsFollowed] = useState(false);
+
   return (
-      <div className="flex mb-2 border-b pb-5">
-          {/* {console.log(memberData)} */}
-          <div>{memberData?.photo == null ? <Avatar /> : <Avatar src={memberData?.photo?.path} />}</div>
+    <div>
+      {/* Following member card */}
+      {following && (
+        <div className="flex mb-2 border-b pb-5 justify-between items-center">
+          <Link to={`/member/${following.id}`} className="flex gap-2 items-center">
+            <div className="border-2 rounded-full">
+              {following?.photo == null ? <Avatar /> : <Avatar src={following?.photo?.path} />}
+            </div>
+            <div>
+              <h3 className="text-sm md:text-base">{following?.username}</h3>
+            </div>
+          </Link>
+          <FollowButton isFollowed={isFollowed} setIsFollowed={setIsFollowed} />
+        </div>
+      )}
+
+      {/* Follower member card */}
+      {follower && (
+        <div className="flex mb-2 border-b pb-5 gap-2 items-center">
+          <Link to={`/member/${follower.id}`} className="border-2 rounded-full">
+            {follower?.photo == null ? <Avatar /> : <Avatar src={follower?.photo?.path} />}
+          </Link>
           <div>
-            <h3>{memberData?.username}</h3>
+            <h3 className="text-sm">{follower?.username}</h3>
           </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -99,7 +99,7 @@ function Product() {
   };
 
   return (
-    <div className="mb-24 md:mb-0 mx-5 md:mx-10">
+    <div className="mb-24 md:mb-10 px-4 md:px-10 lg:px-20">
       <button onClick={handleGoBack} className="text-blue-color flex pb-5 items-center">
         <ArrowLeftIcon className="icon-blue" /> Retour
       </button>
@@ -110,15 +110,17 @@ function Product() {
       ) : (
         <div>
           <Link
-            to={`member/${productInfo?.seller?.id}`}
+            to={`/member/${productInfo?.seller?.id}`}
             // to={productInfo?.seller?.id !== meData.id ? `member/${productInfo?.seller?.id}` : "profile"}
             className="flex items-center p-2 cursor-pointer mb-2"
           >
-            {productInfo?.seller?.photo == null ? (
-              <Avatar />
-            ) : (
-              <Avatar src={productInfo?.seller?.photo?.path} />
-            )}
+            <div className="border rounded-full">
+              {productInfo?.seller?.photo == null ? (
+                <Avatar />
+              ) : (
+                <Avatar src={productInfo?.seller?.photo?.path} />
+              )}
+            </div>
             <span className="pl-2 text-xs font-medium flex items-center">
               {productInfo?.seller?.username}
               {productInfo?.seller?.id >= 10 && (
@@ -153,16 +155,17 @@ function Product() {
               {/* Product Details */}
               <h3 className="product-name"> {productInfo?.name} </h3>
               <p className="product-description">
-                Description: <span className="font-normal block">{productInfo?.description}</span>
+                Description:{" "}
+                <span className="font-normal text-xs lg:text-base block">{productInfo?.description}</span>
               </p>
               <p className="product-quantity">
-                Quantité: <span className="font-normal">{productInfo?.quantity}</span>
+                Quantité: <span className="font-normal text-sm">{productInfo?.quantity}</span>
               </p>
               <p className="product-mark">
-                Marque: <span className="font-normal">{productInfo?.mark}</span>
+                Marque: <span className="font-normal text-sm">{productInfo?.mark}</span>
               </p>
               <p className="product-price">
-                Prix: <span className="font-normal"> {productInfo?.price} FCFA</span>
+                Prix: <span className="font-normal text-sm"> {productInfo?.price} FCFA</span>
               </p>
               <p className="product-status">
                 Etat:
@@ -191,7 +194,7 @@ function Product() {
               </p>
               <div className="mb-5">
                 {/* Rate section */}
-                <div className="flex mb-3 items-center">
+                <div className="flex text-sm mb-3 items-center">
                   Notez le produit :
                   <span className="inline-flex gap-1 ml-2">
                     {[1, 2, 3, 4, 5].map((item) => (

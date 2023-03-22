@@ -1,65 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { productImages } from "../services/files/productsImages";
+import React from "react";
 
 type coverProps = {
-  fileId: string;
-  setFileId: React.Dispatch<React.SetStateAction<string>>;
+  files: { file: File }[];
+  setFiles: React.Dispatch<React.SetStateAction<{ file: File }[]>>;
 };
 
-function CoverPhoto({ fileId, setFileId }: coverProps) {
-  const [image, setImage] = useState("");
-  const [files, setFiles] = useState([]);
-  // const [count, setCount] = useState(1);
-
-  useEffect(() => {
-    if (files.length == 3) {
-      console.log(files);
-      // productImages(files)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     setFileId(res.data.id);
-      //     console.log(fileId);
-      //   })
-      //   .catch((error) => console.log(error));
-    }
-  }, [files]);
-
+function CoverPhoto({ files, setFiles }: coverProps) {
   const handleFileChange = (e: any) => {
-    // console.log(fileChangeEvent);
-    // async function uploadFiles() {
-    //   const allFiles = (await files.length) == 3;
-    //   console.log(files);
-    // }
-    // console.log(e.target.files, "gcgf");
-    // console.log(e.target.files[0], "gcgf");
-    // setImage(e.target.files[0]);
-
-    const formData = new FormData();
-
-    for (let i = 0; i < files.length; i++) {
-      formData.append("image", files[0]);
-    }
-
-    console.log(files)
-
-    // const file = e.target.files[0];
-    // let formData = new FormData();
-    // console.log(formData.append(`image`, file, file.name));
-    // setCount(count + 1);
-    // console.log(formData.get(`image`));
-    // const newFormData = formData.append(`image`, file, file.name)
-
-    // setFiles((currentValue) => [...currentValue, { newFormData }]);
-
-    // uploadFiles();
-
-    // fileUpload(formData)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setFileId(res.data.id);
-    //     console.log(fileId);
-    //   })
-    //   .catch((error) => console.log(error));
+    const file = e.target.files[0];
+    setFiles((currentValue) => [...currentValue, { file }]);
   };
 
   return (

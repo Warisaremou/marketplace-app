@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { CheckIcon, QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { ArrowLongRightIcon } from "@heroicons/react/24/solid";
 import QuantitySelect from "./../QuantitySelect";
+import { CartData } from "../../context/CartContext";
 
-function FirstStep({ nextStep, cart, total, removeFromCart }: any) {
+function FirstStep({ nextStep, cart, total }: any) {
+  const { removeFromCart, clearCart } = CartData();
   const [quantity, setQuantity] = useState<number>(1);
   // console.log(cart);
   // const total = cart.reduce(
@@ -106,6 +108,15 @@ function FirstStep({ nextStep, cart, total, removeFromCart }: any) {
               </li>
             ))}
           </ul>
+          {cart.length > 1 && (
+            <button
+              type="button"
+              onClick={() => clearCart()}
+              className="bg-red-600 text-xs py-1 px-2 text-white rounded-sm mt-5"
+            >
+              Vider le panier
+            </button>
+          )}
         </section>
 
         {/* Order summary */}

@@ -1,15 +1,10 @@
-import { sellProductType } from "../../types/entities";
 import axiosInstance from "../axiosInstance";
 import { PRODUCTS_URL } from "../config";
+import { sellProductType } from "../../types/entities";
 
-type productProps = {
-  productData: sellProductType;
-  pictureId: string;
-  sellerId: number;
-};
-
-export const addProducts = ({ productData, pictureId, sellerId }: productProps) => {
-  const { name, description, mark, price, quantity, statusId, categoryId } = productData;
+export const addProducts = ({ productData }: { productData: sellProductType }) => {
+  const { name, description, mark, price, quantity, statusId, categoryId, sellerId, pictureId } =
+    productData;
   return axiosInstance.post(PRODUCTS_URL, {
     name,
     description,

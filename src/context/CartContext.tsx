@@ -25,12 +25,13 @@ export const CartContext = createContext({
   updateCart: (value: any) => {},
   addToCart: (value: any) => {},
   removeFromCart: (value: any) => {},
+  clearCart: () => {},
 });
 
 export const CartContextProvider = ({ children }: any) => {
   const { getItem, setLocalStorage } = useLocalStorage();
   const savedCart = getItem("cart");
-const [cart, updateCart] = useState<Props[]>(savedCart ? JSON.parse(savedCart) : []);
+  const [cart, updateCart] = useState<Props[]>(savedCart ? JSON.parse(savedCart) : []);
 
   useEffect(() => {
     setLocalStorage("cart", cart);
@@ -63,8 +64,13 @@ const [cart, updateCart] = useState<Props[]>(savedCart ? JSON.parse(savedCart) :
     setToast("Le produit à été supprimé avec succès ");
   };
 
+  const clearCart = () => {
+    updateCart([]);
+    setToast("Le panier a été vider avec succès ");
+  };
+
   return (
-    <CartContext.Provider value={{ cart, updateCart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, updateCart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

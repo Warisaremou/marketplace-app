@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PhoneIcon } from "@heroicons/react/20/solid";
-import {
-  BookmarkIcon,
-  CheckIcon,
-  EllipsisHorizontalIcon,
-  InboxIcon,
-  UserIcon,
-  UserPlusIcon,
-} from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon, InboxIcon, UserIcon } from "@heroicons/react/24/outline";
 import { getMemberInfo } from "../services/user/getMemberInfo";
 import { userType } from "../types/entities";
 import UserDefaultProfile from "../utils/UserDefaultProfile";
-import { clsx } from "clsx";
+import FollowButton from "../utils/FollowButton";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -26,7 +19,7 @@ function MemberProfile() {
   useEffect(() => {
     getMemberInfo(id)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMemberInfo(res.data);
       })
       .catch((error) => console.log(error));
@@ -115,28 +108,7 @@ function MemberProfile() {
 
               {/* buttons */}
               <div className="text-xs md:text-sm flex items-center justify-around gap-x-5">
-                <button
-                  type="button"
-                  className={clsx(
-                    "inline-flex justify-center items-center rounded-md px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50",
-                    isFollowed
-                      ? "bg-gray-100 border border-gray-300"
-                      : "bg-blue-color hover:bg-blue-dark-color text-white focus:ring-blue-color focus:outline-none focus:ring-2 focus:ring-offset-2"
-                  )}
-                  onClick={() => setIsFollowed(!isFollowed)}
-                >
-                  {!isFollowed ? (
-                    <>
-                      <UserPlusIcon className="h-5 w-5 text-white mr-2" aria-hidden="true" />
-                      <span>Suivre</span>
-                    </>
-                  ) : (
-                    <>
-                      <CheckIcon className="h-5 w-5 text-gray-500 mr-2" aria-hidden="true" />
-                      <span>Suivie</span>
-                    </>
-                  )}
-                </button>
+                <FollowButton isFollowed={isFollowed} setIsFollowed={setIsFollowed} />
                 <button
                   type="button"
                   className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-color focus:ring-offset-2"

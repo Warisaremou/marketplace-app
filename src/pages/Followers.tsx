@@ -16,10 +16,10 @@ function Followers() {
       <button onClick={handleGoBack} className="text-blue-color flex pb-5 items-center">
         <ArrowLeftIcon className="icon-blue" /> Retour
       </button>
-      <h1 className="font-semibold text-gray-700">Mes abonnés</h1>
+      <h1 className="font-semibold text-gray-700">Abonnés</h1>
       <div className="mt-5">
         {userFollowers.length <= 0 ? (
-          <p className="text-sm md:text-base text-gray-500">
+          <p className="text-sm text-gray-500">
             Vous navez aucun abonné pour le moment
           </p>
         ) : (

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckIcon, QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { ArrowLongRightIcon } from "@heroicons/react/24/solid";
 import { CartData } from "../context/CartContext";
 import EmptyCartSvg from "../assets/svg/empty-cart.svg";
@@ -8,7 +7,7 @@ import Steper from "../utils/Steper";
 import { FirstStep, SecondStep, ThirdStep } from "../components/Steps";
 
 function Cart() {
-  const { cart, removeFromCart } = CartData();
+  const { cart } = CartData();
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
   const total = cart.reduce(
@@ -54,7 +53,7 @@ function Cart() {
         </div>
       ) : // If the cart is not empty
       formNo == 1 ? (
-        <FirstStep nextStep={nextStep} cart={cart} removeFromCart={removeFromCart} total={total} />
+        <FirstStep nextStep={nextStep} cart={cart} total={total} />
       ) : formNo == 2 ? (
         <SecondStep nextStep={nextStep} previousStep={previousStep} cart={cart} total={total} />
       ) : (

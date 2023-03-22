@@ -18,17 +18,15 @@ type productType = {
 };
 
 type sellProductType = {
-  id: number;
   name: string;
   mark: string;
   description: string;
   price: number;
   quantity: number;
   statusId: number;
-  seller: userType;
+  sellerId: number;
   categoryId: number;
-  reviews: [Reviews];
-  pictures: Photo;
+  pictureId: string;
 };
 
 type reviewsType = {
@@ -51,6 +49,9 @@ type userType = {
   phone?: number;
   description?: string;
   photo?: Photo;
+  followers: [userType];
+  followings: [userType];
+  productsForSale: [productType];
   status: Status;
 };
 

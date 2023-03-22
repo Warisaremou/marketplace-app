@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { getAllCategories } from "../services/categories/getAllCategories";
 import { UserLogged } from "../context/UserLoggedContext";
+import { productImages } from "../services/files/productsImages";
+import { productStatus } from "../data/productStatus";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { UserLoggedContext } from "../context/LoaderContext";
 import CoverPhoto from "../utils/CoverPhoto";
+import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
 import Loader from "../utils/Loader";
-import { productStatus } from "../data/productStatus";
+import { addProducts } from "./../services/products/addProducts";
+import { sellProductType } from "../types/entities";
 
 const schema = z
   .object({
@@ -40,19 +44,42 @@ const schema = z
 function SellProduct() {
   const { meData } = UserLogged();
   const navigate = useNavigate();
-
   const [allCategories, setAllCategories] = useState<{ id: number; name: string }[]>([]);
-  const [fileId, setFileId] = useState("");
+  const [files, setFiles] = useState<{ file: File }[]>([]);
+  const [productData, setProductData] = useState<sellProductType>({} as sellProductType);
+  // const [productData, setProductData] = useState<sellProductType>({} as sellProductType);
+  const [pictureId, setPicturesId] = useState("");
+  const [alert, setAlert] = useState(false);
   const { loader, setLoader } = UserLoggedContext();
 
   // getting all categories
+  
   useEffect(() => {
     getAllCategories()
       .then((res) => {
         setAllCategories(res.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+    
+    if (pictureId !== "") {
+      // console.log(pictureId);
+      // const sellerId = meData?.id;
+      productData.sellerId = meData?.id;
+      productData.pictureId = pictureId;
+      addProducts({ productData })
+        .then((res) => {
+          console.log(res.data);
+          // navigate("/products");
+          console.log("ok");
+        })
+        .catch((error) => console.log(error));
+      console.log(productData);
+      setLoader(false);
+    } else {
+      setLoader(false);
+      return;
+    }
+  }, [pictureId]);
 
   const {
     register,
@@ -63,13 +90,32 @@ function SellProduct() {
   });
 
   const onSubmit = (data: any) => {
-    setLoader(true);
+    setProductData(data);
 
-    setTimeout(() => {
-      console.log(meData.id);
-      console.log(data);
+    if (files.length == 3) {
+      setAlert(false);
+      setLoader(true);
+      console.log(files);
+      let formData = new FormData();
+      files.forEach((file) => {
+        formData.append(`image`, file.file, file.file.name);
+        console.log(formData.get(`image`));
+      });
+      console.log(formData);
+
+      // sending images to the server
+
+      productImages(formData)
+        .then((res) => {
+          console.log(res.data.id);
+          setPicturesId(res.data.id);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      setAlert(true);
       setLoader(false);
-    }, 3000);
+      return;
+    }
   };
 
   return (
@@ -78,8 +124,22 @@ function SellProduct() {
       <div className="py-4 md:py-10 px-1 md:px-8 bg-white text-sm font-medium md:text-base">
         <p className="text-gray-500">Ajoutez trois photos de votre produit</p>
         <div className="grid lg:grid-cols-3 gap-5">
-            <CoverPhoto fileId={fileId} setFileId={setFileId} />
+          <CoverPhoto files={files} setFiles={setFiles} />
         </div>
+        {alert && (
+          <div className="border-l-4 border-red-400 bg-red-50 p-4 mt-5">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <ExclamationTriangleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+              </div>
+              <div className="ml-3">
+                <p className="text-xs md:text-sm text-red-700">
+                  Veuillez ajoutez les photos du produit{" "}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="mt-5 py-3 md:py-10 px-1 md:px-8 bg-white text-xs md:text-base font-medium">
@@ -156,7 +216,7 @@ function SellProduct() {
             </div>
             <textarea
               placeholder="Description du produit"
-              rows={5}
+              rows={6}
               {...register("description")}
               className="text-area-input"
             />

@@ -8,7 +8,7 @@ function Followings() {
   const { userFollowings } = FollowsData();
   const navigate = useNavigate();
 
-  console.log(userFollowings);
+  // console.log(userFollowings);
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -18,18 +18,18 @@ function Followings() {
       <button onClick={handleGoBack} className="text-blue-color flex pb-5 items-center">
         <ArrowLeftIcon className="icon-blue" /> Retour
       </button>
-      <h1 className="font-semibold text-gray-700">Followings</h1>
+      <h1 className="font-semibold text-gray-600">Abonnements</h1>
       <div className="mt-5">
         {userFollowings.length <= 0 ? (
-          <p className="text-sm md:text-base text-gray-500">
+          <p className="text-sm text-gray-500">
             Vous navez aucun abonnement pour le moment
           </p>
         ) : (
           <div>
-            {userFollowings.map((follower: userType | any) => (
+            {userFollowings.map((following: userType) => (
               // <div>Vos abonnés</div>
               //  <div> { console.log(follower)}</div>
-              <MemberCard key={`${follower.id}`} follower={follower} />
+              <MemberCard key={`${following.id}`} following={following} />
             ))}
           </div>
         )}

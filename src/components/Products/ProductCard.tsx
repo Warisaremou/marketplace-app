@@ -14,18 +14,24 @@ function ProductCard({ product }: Props) {
     <div className="product-card">
       <Link to={`item/${product.id}`}>
         <div className="flex items-center p-2 cursor-pointer">
-          {product.seller?.photo == null ? (
-            <Avatar />
-          ) : (
-            <Avatar src={product.seller?.photo?.path} />
-          )}
+          <div className="border rounded-full">
+            {product.seller?.photo == null ? (
+              <Avatar />
+            ) : (
+              <Avatar src={product.seller?.photo?.path} />
+            )}
+          </div>
           <span className="pl-2 text-xs font-medium flex items-center">
             {product.seller?.username}
             {product.seller?.id >= 10 && <CheckBadgeIcon className="h-4 fill-blue-color" />}{" "}
           </span>
         </div>
         <div className="product-img">
-          <img src={product.pictures.path[0]} alt="t-shirt" className="w-full h-full object-cover" />
+          <img
+            src={product.pictures.path[0]}
+            alt="t-shirt"
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="p-2">
           <div className="flex justify-between text-sm font-medium text-gray-600">
