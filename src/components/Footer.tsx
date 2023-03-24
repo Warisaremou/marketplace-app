@@ -39,7 +39,7 @@ const navigation = {
 };
 function Footer() {
   return (
-    <footer className="bg-gray-50 text-gray-600 text-sm hidden md:block">
+    <footer className="bg-gray-100 text-gray-600 text-sm hidden md:block">
       <div className="w-full overflow-hidden py-10 px-4 sm:px-6 md:px-20">
         <div className="my-6 flex justify-between space-x-6">
           <div>

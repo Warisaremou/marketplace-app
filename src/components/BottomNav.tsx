@@ -1,3 +1,4 @@
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import {
   BellIcon,
   HomeIcon,
@@ -11,6 +12,8 @@ import CustomLink from "./CustomLink";
 
 function BottomNav() {
   const { meData } = UserLogged();
+  const { getItem } = useLocalStorage();
+  const userToken = getItem("accessToken");
 
   const bottomMenu = [
     {
@@ -35,7 +38,7 @@ function BottomNav() {
     },
     {
       name: "Profile",
-      path: `profile/${meData?.username}`,
+      path: `profile${userToken ? `/${meData?.username}` : ""}`,
       icon: UserCircleIcon,
     },
   ];

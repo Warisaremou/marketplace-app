@@ -46,7 +46,6 @@ function CoverPhoto({ files, setFiles }: coverProps) {
                 />
               </label>
             </div>
-            <p className="text-xs text-gray-500">PNG, jPG jusqu'à 5 Mo</p>
           </div>
         </div>
       ))}

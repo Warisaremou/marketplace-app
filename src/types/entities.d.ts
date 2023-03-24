@@ -48,6 +48,7 @@ type userType = {
   address?: string;
   phone?: number;
   description?: string;
+  socialLink?: string;
   photo?: Photo;
   followers: [userType];
   followings: [userType];

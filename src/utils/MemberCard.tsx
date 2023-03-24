@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
 import { userType } from "../types/entities";
 import Avatar from "./Avatar";
 
 type MemberProps = {
-  following: userType;
+  following?: userType;
   follower?: userType;
 };
 
 function MemberCard({ following, follower }: MemberProps) {
   const [isFollowed, setIsFollowed] = useState(false);
+  useEffect(() => {
+    if (following) {
+      setIsFollowed(true);
+    }
+  }, []);
 
   return (
     <div>
@@ -31,13 +36,16 @@ function MemberCard({ following, follower }: MemberProps) {
 
       {/* Follower member card */}
       {follower && (
-        <div className="flex mb-2 border-b pb-5 gap-2 items-center">
-          <Link to={`/member/${follower.id}`} className="border-2 rounded-full">
-            {follower?.photo == null ? <Avatar /> : <Avatar src={follower?.photo?.path} />}
+        <div className="flex mb-2 border-b pb-5 justify-between items-center">
+          <Link to={`/member/${follower.id}`} className="flex gap-2 items-center">
+            <div className="border-2 rounded-full">
+              {follower?.photo == null ? <Avatar /> : <Avatar src={follower?.photo?.path} />}
+            </div>
+            <div>
+              <h3 className="text-sm">{follower?.username}</h3>
+            </div>
           </Link>
-          <div>
-            <h3 className="text-sm">{follower?.username}</h3>
-          </div>
+          <FollowButton isFollowed={isFollowed} setIsFollowed={setIsFollowed} />
         </div>
       )}
     </div>

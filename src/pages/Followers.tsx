@@ -1,12 +1,14 @@
 import { FollowsData } from "../context/UserFollowsContext";
 import { useNavigate } from "react-router-dom";
+import MemberCard from "../utils/MemberCard";
+import { userType } from "../types/entities";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 function Followers() {
   const { userFollowers } = FollowsData();
   const navigate = useNavigate();
 
-  console.log(userFollowers);
+  // console.log(userFollowers);
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -19,13 +21,11 @@ function Followers() {
       <h1 className="font-semibold text-gray-700">Abonnés</h1>
       <div className="mt-5">
         {userFollowers.length <= 0 ? (
-          <p className="text-sm text-gray-500">
-            Vous navez aucun abonné pour le moment
-          </p>
+          <p className="text-sm text-gray-500">Vous navez aucun abonné pour le moment</p>
         ) : (
           <div>
-            {userFollowers.map((follower: any) => (
-              <p>Vos abonnés</p>
+            {userFollowers.map((follower: userType) => (
+              <MemberCard key={`${follower.id}`} follower={follower} />
             ))}
           </div>
         )}

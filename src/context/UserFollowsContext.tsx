@@ -1,4 +1,7 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
+import { getFollowers } from "../services/Follows/getFollowers";
+import { getFollowings } from "../services/Follows/getFollowings";
+import { UserLogged } from "./UserLoggedContext";
 
 export const UserFollowContext = createContext({
   userFollowers: [],
@@ -10,6 +13,22 @@ export const UserFollowContext = createContext({
 export const UserFollowContextProvider = ({ children }: any) => {
   const [userFollowers, setUserFollowers] = useState([]);
   const [userFollowings, setUserFollowings] = useState([]);
+  const { meData } = UserLogged();
+
+  // useEffect(() => {
+  //   getFollowers(meData?.id)
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       setUserFollowers(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  //   getFollowings(meData?.id)
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       setUserFollowings(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <UserFollowContext.Provider

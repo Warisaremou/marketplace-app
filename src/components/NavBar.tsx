@@ -19,10 +19,10 @@ import CustomLink2 from "./CustomLink2";
 import { UserLogged } from "../context/UserLoggedContext";
 
 function NavBar() {
+  const { meData } = UserLogged();
   const [open, setOpen] = useState(false);
   const { getItem } = useLocalStorage();
   const userToken = getItem("accessToken");
-  const { meData } = UserLogged();
 
   const navMenu = [
     {
@@ -42,7 +42,7 @@ function NavBar() {
     },
     {
       name: "Profile",
-      path: `profile/${meData?.username}`,
+      path: `profile${userToken ? `/${meData?.username}` : ""}`,
       icon: UserCircleIcon,
     },
   ];

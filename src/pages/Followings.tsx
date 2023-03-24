@@ -21,14 +21,10 @@ function Followings() {
       <h1 className="font-semibold text-gray-600">Abonnements</h1>
       <div className="mt-5">
         {userFollowings.length <= 0 ? (
-          <p className="text-sm text-gray-500">
-            Vous navez aucun abonnement pour le moment
-          </p>
+          <p className="text-sm text-gray-500">Vous navez aucun abonnement pour le moment</p>
         ) : (
           <div>
             {userFollowings.map((following: userType) => (
-              // <div>Vos abonnés</div>
-              //  <div> { console.log(follower)}</div>
               <MemberCard key={`${following.id}`} following={following} />
             ))}
           </div>

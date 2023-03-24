@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 // import QuantitySelect from "../components/QuantitySelect";
+import { UserLogged } from "../context/UserLoggedContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOneProduct } from "./../services/products/getOneProduct";
 import { productType } from "../types/entities";
@@ -21,6 +22,7 @@ import CartModal from "../utils/CartModal";
 
 function Product() {
   const { id } = useParams();
+  const { meData } = UserLogged();
   const [productImgList, setProductImgList] = useState<string[]>([]);
   const [ratingAverage, setRating] = useState<number[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
@@ -110,8 +112,12 @@ function Product() {
       ) : (
         <div>
           <Link
-            to={`/member/${productInfo?.seller?.id}`}
-            // to={productInfo?.seller?.id !== meData.id ? `member/${productInfo?.seller?.id}` : "profile"}
+            to={
+              productInfo?.seller?.id !== meData.id
+                ? `/member/${productInfo?.seller?.id}`
+                : `/profile/${meData.username}`
+            }
+            // to={productInfo?.seller?.id !== meData.id ? `/member/${productInfo?.seller?.id}` : "profile"}
             className="flex items-center p-2 cursor-pointer mb-2"
           >
             <div className="border rounded-full">
@@ -156,7 +162,9 @@ function Product() {
               <h3 className="product-name"> {productInfo?.name} </h3>
               <p className="product-description">
                 Description:{" "}
-                <span className="font-normal text-xs lg:text-base block">{productInfo?.description}</span>
+                <span className="font-normal text-xs lg:text-base block">
+                  {productInfo?.description}
+                </span>
               </p>
               <p className="product-quantity">
                 Quantité: <span className="font-normal text-sm">{productInfo?.quantity}</span>

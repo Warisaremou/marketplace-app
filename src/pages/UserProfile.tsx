@@ -11,13 +11,13 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
-import { FollowsData, UserFollowContext } from "../context/UserFollowsContext";
+import { FollowsData } from "../context/UserFollowsContext";
 import { getFollowings } from "../services/Follows/getFollowings";
 
 function UserProfile() {
   const [pop, OpenPop] = useState(false);
   const { meData } = UserLogged();
-  const { setUserFollowers, setUserFollowings, userFollowings, userFollowers } = FollowsData();
+  const { setUserFollowers, setUserFollowings } = FollowsData();
   const { removeFromLocalStorage, getItem } = useLocalStorage();
   const userToken = getItem("accessToken");
 
@@ -39,7 +39,7 @@ function UserProfile() {
 
   const disconnectMe = () => {
     removeFromLocalStorage("accessToken");
-    window.location.reload();
+    window.location.pathname = "/profile";
   };
 
   function classNames(...classes: any[]) {
@@ -87,7 +87,7 @@ function UserProfile() {
             {userToken ? (
               <h1 className="font-medium text-xl text-gray-600">{meData.username}</h1>
             ) : (
-              <div className="text-xs">
+              <div className="text-sm">
                 Vous n'êtes pas connecté
                 <Link to="/login" className="pl-1 text-red-500">
                   s'indentifier
@@ -114,10 +114,10 @@ function UserProfile() {
           <div className="relative">
             <div className="flex justify-center">
               <div className="p-2 text-sm text-gray-700 flex md:block justify-center">
-                <button type="button" className="update-btn">
+                <Link to="edit" type="button" className="update-btn">
                   <PencilSquareIcon className="w-5 h-5 stroke-gray-700" />
                   Modifier profile
-                </button>
+                </Link>
               </div>
               <EllipsisVerticalIcon
                 onClick={() => OpenPop(!pop)}
