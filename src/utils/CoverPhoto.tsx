@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 type coverProps = {
   files: { file: File }[];
@@ -10,6 +10,10 @@ function CoverPhoto({ files, setFiles }: coverProps) {
     const file = e.target.files[0];
     setFiles((currentValue) => [...currentValue, { file }]);
   };
+
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
 
   return (
     <>

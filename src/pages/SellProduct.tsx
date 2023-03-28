@@ -47,14 +47,13 @@ function SellProduct() {
   const [allCategories, setAllCategories] = useState<{ id: number; name: string }[]>([]);
   const [files, setFiles] = useState<{ file: File }[]>([]);
   const [productData, setProductData] = useState<sellProductType>({} as sellProductType);
-  // const [productData, setProductData] = useState<sellProductType>({} as sellProductType);
   const [pictureId, setPicturesId] = useState("");
   const [alert, setAlert] = useState(false);
   const { loader, setLoader } = UserLoggedContext();
 
-  // getting all categories
   
   useEffect(() => {
+    // getting all categories
     getAllCategories()
       .then((res) => {
         setAllCategories(res.data);
@@ -64,8 +63,11 @@ function SellProduct() {
     if (pictureId !== "") {
       // console.log(pictureId);
       // const sellerId = meData?.id;
+      console.log(productData);
       productData.sellerId = meData?.id;
       productData.pictureId = pictureId;
+      setLoader(false);
+      return;
       addProducts({ productData })
         .then((res) => {
           console.log(res.data);
@@ -73,7 +75,6 @@ function SellProduct() {
           console.log("ok");
         })
         .catch((error) => console.log(error));
-      console.log(productData);
       setLoader(false);
     } else {
       setLoader(false);
@@ -99,15 +100,15 @@ function SellProduct() {
       let formData = new FormData();
       files.forEach((file) => {
         formData.append(`image`, file.file, file.file.name);
-        console.log(formData.get(`image`));
+        // console.log(formData.get(`image`));
       });
-      console.log(formData);
+      // console.log(formData);
 
       // sending images to the server
 
       productImages(formData)
         .then((res) => {
-          console.log(res.data.id);
+          // console.log(res.data.id);
           setPicturesId(res.data.id);
         })
         .catch((error) => console.log(error));
